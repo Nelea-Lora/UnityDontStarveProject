@@ -10,8 +10,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.TryGetComponent(out StoneController stone))
         {
-            print("colission with stone");
             _stoneCount++;
+            print("_stoneCount"+_stoneCount);
             Destroy(stone.gameObject);
         }
     }

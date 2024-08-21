@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Project/Scenes/MenuStartGame.unity
+    guid: 406b2f1876bcb8243809852abf803ce4
+  - enabled: 1
+    path: Assets/_Project/UnityDontStarve.unity
+    guid: b8e5556810743b04d86e87abd872f05f
   m_configObjects: {}
