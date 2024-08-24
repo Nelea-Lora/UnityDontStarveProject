@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5201430721346604187}
   - component: {fileID: 1939291633929472025}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ItemAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,14 +27,14 @@ RectTransform:
   m_GameObject: {fileID: 7479350081248908557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.83375156, y: 0.641779, z: 1.525156}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5321467487943806341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5.8, y: -12.4}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5201430721346604187
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -161,7 +161,7 @@ RectTransform:
   m_GameObject: {fileID: 7913704699793061515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1343, y: 0.18615, z: 1}
+  m_LocalScale: {x: 0.89266735, y: 0.87399286, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5321467487943806341}
@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 4285015990020267480}
   - component: {fileID: 209541773888771743}
   - component: {fileID: 1599638614175381979}
+  - component: {fileID: 1577490288632771660}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -237,11 +238,11 @@ RectTransform:
   m_GameObject: {fileID: 8580837429227825544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.34433886, y: 1.925203, z: 0.84974}
+  m_LocalScale: {x: 1.1717613, y: 4.2871127, z: 0.8497398}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 678582221647825720}
   - {fileID: 2829454547521255706}
+  - {fileID: 678582221647825720}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -330,4 +331,30 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 209541773888771743}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: Equip
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1577490288632771660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580837429227825544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc2c23c6aadbec4dbb587b9baf787b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  amount: 0

@@ -8,32 +8,19 @@ public class PlayerController : MonoBehaviour
     private Vector3 _movingVector;
     private float _horizontalLimitValue;
     private float _verticalLimitValue;
-    //public ButtonsStartMenu _buttonSrart;
     private bool _isChecked;
+    public Transform mainCamera;
     void Start()
     {
         _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
         _verticalLimitValue = FloorBoundaries.verticalLimitValue;
-        //Time.timeScale = 0f;
-        // _buttonSrart.StartGameOn();
-        // if (Input.GetMouseButton(0) && !_buttonSrart.IsStarted)
-        // {
-        //     _buttonSrart.StartGame();
-        // }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     
     void Update()
     {
         float axis;
-        // if (!_isChecked)
-        // {
-        //     Time.timeScale = 1f;
-        //     _isChecked = true;
-        //     
-        // }
-        
-        // if (_buttonSrart.IsStarted && _isChecked)
-        // {
             if (Input.GetAxis("Horizontal") != 0)
             {
                 axis = Input.GetAxis("Horizontal");
@@ -49,6 +36,5 @@ public class PlayerController : MonoBehaviour
             newPosition.x = Mathf.Clamp(newPosition.x, -_horizontalLimitValue, _horizontalLimitValue);
             newPosition.z = Mathf.Clamp(newPosition.z, -_verticalLimitValue, _verticalLimitValue);
             transform.position = newPosition;
-        //}
     }
 }

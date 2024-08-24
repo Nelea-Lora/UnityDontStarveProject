@@ -4,13 +4,5 @@ using UnityEngine;
 
 public class StoneController : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
     
-    void Update()
-    {
-        
-    }
 }
