@@ -358,3 +358,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   amount: 0
+  iconGO: {fileID: 0}
+  itemAmount: {fileID: 0}

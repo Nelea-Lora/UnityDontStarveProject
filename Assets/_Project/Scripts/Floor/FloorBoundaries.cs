@@ -15,7 +15,7 @@ public class FloorBoundaries : MonoBehaviour
         {
             Vector3 floorSize = floorRenderer.bounds.size;
             horizontalLimitValue = floorSize.x / 2f;
-            verticalLimitValue = floorSize.z / 2f;
+            verticalLimitValue = floorSize.y / 2f;
         }
     }
 }

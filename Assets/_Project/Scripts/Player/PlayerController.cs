@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     {
         _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
         _verticalLimitValue = FloorBoundaries.verticalLimitValue;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
     }
     
     void Update()
@@ -29,12 +29,12 @@ public class PlayerController : MonoBehaviour
             else
             {
                 axis = Input.GetAxis("Vertical");
-                _movingVector = new Vector3(0, 0, axis * _speed);
+                _movingVector = new Vector3(0, axis * _speed, 0);
             }
 
             Vector3 newPosition = transform.position + _movingVector * Time.deltaTime;
             newPosition.x = Mathf.Clamp(newPosition.x, -_horizontalLimitValue, _horizontalLimitValue);
-            newPosition.z = Mathf.Clamp(newPosition.z, -_verticalLimitValue, _verticalLimitValue);
+            newPosition.y = Mathf.Clamp(newPosition.y, -_verticalLimitValue, _verticalLimitValue);
             transform.position = newPosition;
     }
 }

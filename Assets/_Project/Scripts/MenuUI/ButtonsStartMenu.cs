@@ -18,4 +18,5 @@ public class ButtonsStartMenu : MonoBehaviour
     {
         _startScreen.SetActive(true);
     }
+    
 }

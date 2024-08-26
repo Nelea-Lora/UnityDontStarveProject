@@ -21,14 +21,12 @@ public class InventorySlot : MonoBehaviour
 
     private void Awake()
     {
-        print("InventorySlot/Start");
         iconGO = transform.GetChild(0).gameObject;
         itemAmount = transform.GetChild(1).GetComponent<TMP_Text>();
     }
 
     public void SetIcon(Sprite icon)
     {
-        print("InventorySlot/SetIcon");
         iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         iconGO.GetComponent<Image>().sprite = icon;
 
