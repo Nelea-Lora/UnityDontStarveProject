@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     {
         _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
         _verticalLimitValue = FloorBoundaries.verticalLimitValue;
-        // Cursor.lockState = CursorLockMode.Locked;
-        // Cursor.visible = false;
     }
     
     void Update()

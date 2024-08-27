@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private PlayerCollision _playerCollision;
     public Transform _inventoryPanel;
     public List<InventorySlot> slots = new List<InventorySlot>();
     private Camera _mainCamera;
-    private bool _entered;
     private Item _itemTmp;
 
     void Start()
     {
+        _playerCollision.OnItemTriggerEnter += OnItemTriggerEnter;
+        _playerCollision.OnItemTriggerExit += OnItemTriggerExit;
         _mainCamera = Camera.main;
         for (int i = 0; i < _inventoryPanel.childCount; i++)
         {
@@ -25,35 +27,26 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _entered && _itemTmp)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            GetItem(_itemTmp);
+            GetItem();
         }
     }
 
-    private void GetItem(Item item)
+    private void GetItem()
     {
-        AddItem(item.gameObject.GetComponent<Item>()._Item,
-            item.gameObject.GetComponent<Item>()._amount);
-        Destroy(item.gameObject);
-        _entered = false;
+        if (!_itemTmp) return;
+        AddItem(_itemTmp._Item, _itemTmp._amount);
+        Destroy(_itemTmp.gameObject);
     }
-    void OnTriggerEnter(Collider other)
+    void OnItemTriggerEnter(Item item)
     {
-        if (other.TryGetComponent(out Item item))
-        {
-            _entered = true;
-            _itemTmp = item;
-        }
+        _itemTmp = item;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnItemTriggerExit(Item item)
     {
-        if (other.TryGetComponent(out Item item))
-        {
-            _entered = false;
-            _itemTmp = null;
-        }
+        _itemTmp = null;
     }
 
     private void AddItem(ItemScriptableObject _item, int _amount)
