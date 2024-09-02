@@ -7,7 +7,8 @@ public class AnimalOrPlantManager : MonoBehaviour
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private HealthSystem _healthSystem;
     private AnimalOrPlant _animalOrPlantTmp;
-    private int _damageAdd;
+    private float _damageAdd;
+    private bool _attackAdded;
     void Start()
     {
         _playerCollision.OnAnimalOrPlantTriggerEnter += OnAnimalOrPlantTriggerEnter;
@@ -16,11 +17,16 @@ public class AnimalOrPlantManager : MonoBehaviour
     
     void Update()
     {
-        if (_animalOrPlantTmp && _animalOrPlantTmp.animalPlant.animalPlantType==AnimalPlantType.Attaker) 
-        { DamageAdd(); }
+        if (_animalOrPlantTmp && _animalOrPlantTmp &&
+            _animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Attaker && !_attackAdded)
+        {
+            DamageAdd();
+            _attackAdded = true;
+        }
     }
     void OnAnimalOrPlantTriggerEnter(AnimalOrPlant animalOrPlant)
     {
+        _attackAdded = false;
         _animalOrPlantTmp = animalOrPlant;
     }
     void OnAnimalOrPlantTriggerExit(AnimalOrPlant animalOrPlant)

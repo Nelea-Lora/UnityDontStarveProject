@@ -16,4 +16,4 @@ MonoBehaviour:
   animalPlantType: 0
   animalPlantDescription: 
   icon: {fileID: 21300000, guid: c0db65db2464bd54e84741484cc6670a, type: 3}
-  damageAmount: 20
+  damageAmount: 0.2

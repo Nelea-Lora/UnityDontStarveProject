@@ -8,16 +8,15 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private Image _health;
     [SerializeField] private Image _hunger;
     [SerializeField] private Image _mind;
-    public int maxHealth = 100;
-    private int currentHealth;
-    public Slider healthSlider;
+    public float maxHealth = 1;
+    private float currentHealth;
     void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
     }
     
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         print(currentHealth);
@@ -29,7 +28,7 @@ public class HealthSystem : MonoBehaviour
         UpdateHealthUI();
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         currentHealth += amount;
         if (currentHealth > maxHealth)
@@ -40,9 +39,9 @@ public class HealthSystem : MonoBehaviour
     }
     void UpdateHealthUI()
     {
-        if (healthSlider != null)
+        if (_health)
         {
-            healthSlider.value = currentHealth;
+            _health.fillAmount = currentHealth;
         }
     }
     void Die()

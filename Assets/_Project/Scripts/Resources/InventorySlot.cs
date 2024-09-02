@@ -18,11 +18,15 @@ public class InventorySlot : MonoBehaviour
     {
         isComplete = true;
     }
+    public void SlotEmpty()
+    {
+        isComplete = false;
+    }
 
     private void Awake()
     {
-        iconGO = transform.GetChild(0).gameObject;
-        itemAmount = transform.GetChild(1).GetComponent<TMP_Text>();
+        iconGO = transform.GetChild(0).GetChild(0).gameObject;
+        itemAmount = transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
     }
 
     public void SetIcon(Sprite icon)

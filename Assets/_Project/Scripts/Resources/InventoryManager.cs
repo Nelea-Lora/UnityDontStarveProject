@@ -55,9 +55,13 @@ public class InventoryManager : MonoBehaviour
         {
             if (slot.item == _item)
             {
-                slot.amount += _amount;
-                slot.itemAmount.text = slot.amount.ToString();
-                return;
+                if (slot.amount + _amount<=_item.maximumAmount)
+                {
+                    slot.amount += _amount;
+                    slot.itemAmount.text = slot.amount.ToString();
+                    return;
+                }
+                break;
             }
         }
         foreach (InventorySlot slot in slots)
