@@ -10,6 +10,8 @@ public class InventoryManager : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     private Camera _mainCamera;
     private Item _itemTmp;
+    [SerializeField] private DigitSwitching _digitSwitching;
+    [SerializeField] private HealthSystem _healthSystem;
 
     void Start()
     {
@@ -30,6 +32,10 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             GetItem();
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            AddHealth();
         }
     }
 
@@ -74,6 +80,23 @@ public class InventoryManager : MonoBehaviour
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
                 break;
+            }
+        }
+    }
+
+    private void AddHealth()
+    {
+        if(_digitSwitching )
+        {
+            InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
+                .GetComponent<InventorySlot>();
+            if(currentItem)
+            {
+                FoodItem foodItem = currentItem.item as FoodItem;
+                if (currentItem.item.itemType == ItemType.Food && foodItem)
+                {
+                    _healthSystem.Heal(foodItem.healingAmount);
+                }
             }
         }
     }

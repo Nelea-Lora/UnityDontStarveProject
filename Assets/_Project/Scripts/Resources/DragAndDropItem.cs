@@ -12,6 +12,7 @@ public class DragAndDropItem : MonoBehaviour, IDragHandler, IBeginDragHandler, I
     private RectTransform _rectTransform;
     private UISlotDragAndDrop _slotDrop;
     public InventorySlot oldSlot;
+    public bool currentSlotCompleted;
 
     void Start()
     {
@@ -35,11 +36,12 @@ public class DragAndDropItem : MonoBehaviour, IDragHandler, IBeginDragHandler, I
         transform.localPosition = Vector3.zero;
         _canvasGroup.blocksRaycasts = true;
         InventorySlot newSlot = eventData.pointerDrag.transform.parent.GetComponent<InventorySlot>();
-        if (newSlot != null)
+        if (newSlot != null && currentSlotCompleted)
         {
             print("old slot  " + oldSlot);
             oldSlot.SlotEmpty();
             oldSlot = newSlot;
+            currentSlotCompleted = false;
         }
     }
 }
