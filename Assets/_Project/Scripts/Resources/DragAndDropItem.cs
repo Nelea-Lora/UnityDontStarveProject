@@ -18,7 +18,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.75f);
         GetComponentInChildren<Image>().raycastTarget = false;
         transform.SetParent(transform.parent.parent);
-        print("transform.parent.parent "+transform.parent.parent);
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -31,17 +30,14 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1f);
         GetComponentInChildren<Image>().raycastTarget = true;
         transform.SetParent(oldSlot.transform);
-        print(" transform.SetParent(oldSlot.transform) = "+oldSlot);
         transform.position = oldSlot.transform.position;
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
             InventorySlot newSlot = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.
                 GetComponent<InventorySlot>();
-            print("OnPointerUp   newSlot "+newSlot);
             if (newSlot != null)
             {
                 ExchangeSlotData(newSlot);
-                print("!newSlot.isComplete = "+!newSlot.isComplete);
                 //if (!newSlot.isComplete) NullifySlotData();
             }
         }

@@ -9,4 +9,5 @@ public class AnimalPlantScriptableObject : ScriptableObject
     public AnimalPlantType animalPlantType;
     public string animalPlantDescription;
     public Sprite icon;
+    public float healthLevel;
 }

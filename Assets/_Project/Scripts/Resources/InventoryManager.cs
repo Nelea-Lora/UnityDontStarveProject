@@ -29,14 +29,8 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GetItem();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UseItem();
-        }
+        if (Input.GetKeyDown(KeyCode.E)) GetItem();
+        if (Input.GetKeyDown(KeyCode.Space)) UseItem();
     }
 
     private void GetItem()
@@ -99,4 +93,5 @@ public class InventoryManager : MonoBehaviour
             else currentItem.DecreaseSlotData();
         }
     }
+    
 }
