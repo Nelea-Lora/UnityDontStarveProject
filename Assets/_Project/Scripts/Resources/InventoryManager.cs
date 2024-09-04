@@ -33,9 +33,9 @@ public class InventoryManager : MonoBehaviour
         {
             GetItem();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            AddHealth();
+            UseItem();
         }
     }
 
@@ -84,17 +84,19 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void AddHealth()
+    private void UseItem()
     {
         if (!_digitSwitching) return;
         InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
             .GetComponent<InventorySlot>();
-        if (!currentItem) return;
+        if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
+            || currentItem.amount <= 0) return;
         FoodItem foodItem = currentItem.item as FoodItem;
-        if (currentItem.item && currentItem.item.itemType == ItemType.Food && foodItem)
+        if (currentItem.item.itemType == ItemType.Food && foodItem)
         {
             _healthSystem.Heal(foodItem.healingAmount);
-            print("Heal currentItem.item  "+currentItem.item);
+            if (currentItem.amount == 1) currentItem.NullifySlotData();
+            else currentItem.DecreaseSlotData();
         }
     }
 }

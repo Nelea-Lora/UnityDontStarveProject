@@ -35,4 +35,18 @@ public class InventorySlot : MonoBehaviour
         iconGO.GetComponent<Image>().sprite = icon;
 
     }
+    public void NullifySlotData()
+    {
+        item = null;
+        amount = 0;
+        isComplete = false;
+        iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        iconGO.GetComponent<Image>().sprite = null;
+        itemAmount.text = "";
+    }
+    public void DecreaseSlotData()
+    {
+        amount -=1;
+        itemAmount.text = amount.ToString();
+    }
 }

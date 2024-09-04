@@ -11,7 +11,6 @@ public class DigitSwitching : MonoBehaviour
     [SerializeField]private Sprite selectedImage;
     [SerializeField]private Sprite notSelectedImage;
     public Transform slotParent;
-    private Sprite _image;
     
     void Update()
     {
@@ -20,9 +19,16 @@ public class DigitSwitching : MonoBehaviour
             if (Input.GetKeyDown((i + 1).ToString())) {
                 if (currentSlotID == i)
                 {
-                    _image = slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite;
-                    if (_image == notSelectedImage) _image = selectedImage;
-                    else _image = notSelectedImage;
+                    if (slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite == notSelectedImage)
+                    {
+                        print("_image == notSelectedImage");
+                        slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
+                    }
+                    // else
+                    // {
+                    //     print("_image == selectedImage");
+                    //     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = notSelectedImage;
+                    // }
                 }
                 else
                 {

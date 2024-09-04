@@ -46,15 +46,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             }
         }
     }
-    // void NullifySlotData()
-    // {
-    //     oldSlot.item = null;
-    //     oldSlot.amount = 0;
-    //     oldSlot.isComplete = false;
-    //     oldSlot.iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-    //     oldSlot.iconGO.GetComponent<Image>().sprite = null;
-    //     oldSlot.itemAmount.text = "";
-    // }
     void ExchangeSlotData(InventorySlot newSlot)
     {
         ItemScriptableObject item = newSlot.item;
