@@ -86,18 +86,15 @@ public class InventoryManager : MonoBehaviour
 
     private void AddHealth()
     {
-        if(_digitSwitching )
+        if (!_digitSwitching) return;
+        InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
+            .GetComponent<InventorySlot>();
+        if (!currentItem) return;
+        FoodItem foodItem = currentItem.item as FoodItem;
+        if (currentItem.item && currentItem.item.itemType == ItemType.Food && foodItem)
         {
-            InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
-                .GetComponent<InventorySlot>();
-            if(currentItem)
-            {
-                FoodItem foodItem = currentItem.item as FoodItem;
-                if (currentItem.item.itemType == ItemType.Food && foodItem)
-                {
-                    _healthSystem.Heal(foodItem.healingAmount);
-                }
-            }
+            _healthSystem.Heal(foodItem.healingAmount);
+            print("Heal currentItem.item  "+currentItem.item);
         }
     }
 }
