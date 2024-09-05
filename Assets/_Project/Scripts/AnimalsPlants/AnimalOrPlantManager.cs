@@ -36,6 +36,7 @@ public class AnimalOrPlantManager : MonoBehaviour
     {
         _attackAdded = false;
         _animalOrPlantTmp = animalOrPlant;
+        _animalOrPlantTmp.animalPlant.healthLevel = _animalOrPlantTmp.animalPlant.maxHealthLevel;
     }
     void OnAnimalOrPlantTriggerExit(AnimalOrPlant animalOrPlant)
     {
@@ -53,28 +54,37 @@ public class AnimalOrPlantManager : MonoBehaviour
 
     private void TakeDamageAP()
     {
-        print("You hit it");
         if(_animalOrPlantTmp.animalPlant.healthLevel<=0)return;
-        print("_animalOrPlantTmp.animalPlant.healthLevel==0"+ _animalOrPlantTmp.animalPlant.healthLevel);
         InstrumentItem instrumentItem = _playerController.itemInHands as InstrumentItem;
         if (!instrumentItem) return;
-        print("You have "+instrumentItem);
         if (_animalOrPlantTmp.animalPlant.animalPlantType is AnimalPlantType.Attaker or AnimalPlantType.Runner)
         {
             _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
-            print("  _animalOrPlantTmp.animalPlant.healthLevel  = "+  _animalOrPlantTmp.animalPlant.healthLevel );
         }
         else if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Vegetable)
         {
             Vegetable vegetable = _animalOrPlantTmp.animalPlant as Vegetable;
             if(vegetable && vegetable.instrumentType == instrumentItem.instrumentType)
             {_animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;}
-            print("  _animalOrPlantTmp.animalPlant.healthLevel  = "+  _animalOrPlantTmp.animalPlant.healthLevel );
         }
-        if (_animalOrPlantTmp.animalPlant.healthLevel == 0)
+        if (_animalOrPlantTmp.animalPlant.healthLevel <= 0)
         {
-            print(_animalOrPlantTmp.animalPlant+" is dead");
+            Death();
         }
+    }
+
+    private void Death()
+    {
+        print("Death");
+        if(_animalOrPlantTmp.animalPlant.items==null) return;
+        print(_animalOrPlantTmp.animalPlant+" death");
+        for (int i = 0; i < _animalOrPlantTmp.animalPlant.items.Count; i++)
+        {
+           Item item = _animalOrPlantTmp.animalPlant.items[i];
+           print("You've got "+item);
+           Instantiate(item.gameObject, _animalOrPlantTmp.transform.position, Quaternion.identity);
+        }
+        Destroy(_animalOrPlantTmp.gameObject);
     }
     
 }

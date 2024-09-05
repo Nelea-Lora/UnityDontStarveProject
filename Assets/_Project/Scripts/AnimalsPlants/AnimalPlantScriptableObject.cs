@@ -10,4 +10,6 @@ public class AnimalPlantScriptableObject : ScriptableObject
     public string animalPlantDescription;
     public Sprite icon;
     public float healthLevel;
+    public float maxHealthLevel;
+    public List<Item> items = new List<Item>();
 }

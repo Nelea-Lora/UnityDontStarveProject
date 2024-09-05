@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7173966788795776890}
   - component: {fileID: 6727997141813539925}
   - component: {fileID: 2040430957209622842}
+  - component: {fileID: 6181882579592120446}
   m_Layer: 0
   m_Name: WalnutTree
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.98, y: -3.1750288, z: -0.5288267}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7478493955787925349}
@@ -100,7 +101,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -108,6 +109,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6181882579592120446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218122319453759603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75b13ec85ac26341a36bf005559b091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalPlant: {fileID: 11400000, guid: f882daffcdb30c4429c840f55b6a6d03, type: 2}
 --- !u!1 &9099269167696331321
 GameObject:
   m_ObjectHideFlags: 0

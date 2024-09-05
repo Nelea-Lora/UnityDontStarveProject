@@ -15,5 +15,10 @@ MonoBehaviour:
   animalPlantPrefab: {fileID: 5617152833347063374, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
   animalPlantType: 0
   animalPlantDescription: 
-  icon: {fileID: 21300000, guid: c0db65db2464bd54e84741484cc6670a, type: 3}
+  icon: {fileID: 21300000, guid: 0fd27930c80e5de40b6efd32bc289c4c, type: 3}
+  healthLevel: 0
+  maxHealthLevel: 10
+  items:
+  - {fileID: 5509508415289958498, guid: 4ec56782963a5664b9fd7d1ba3ccd04e, type: 3}
+  - {fileID: 3360583102139036511, guid: d8d94f7ba12e9dd4fa879fc9ecd8f53a, type: 3}
   damageAmount: 0.2
