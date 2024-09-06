@@ -85,11 +85,12 @@ public class InventoryManager : MonoBehaviour
             .GetComponent<InventorySlot>();
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
             || currentItem.amount <= 0) return;
-        FoodItem foodItem = currentItem.item as FoodItem;
-        if (currentItem.item.itemType == ItemType.Food && foodItem)
+        if (currentItem.item.itemType == ItemType.Food)
         {
+            FoodItem foodItem = currentItem.item as FoodItem;
+            if(!foodItem)return;
             _healthSystem.Heal(foodItem.healingAmount);
-            if (currentItem.amount == 1) currentItem.NullifySlotData();
+            if (currentItem.amount <= 1) currentItem.NullifySlotData();
             else currentItem.DecreaseSlotData();
         }
     }

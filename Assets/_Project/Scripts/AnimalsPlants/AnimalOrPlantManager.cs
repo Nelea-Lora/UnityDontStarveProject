@@ -26,7 +26,7 @@ public class AnimalOrPlantManager : MonoBehaviour
                 GiveDamage(); _attackAdded = true;
             }
             if (_playerController&& _playerController.itemInHands&& 
-                _playerController.itemInHands.itemType == ItemType.Instrument && Input.GetMouseButtonDown(0))
+                _playerController.itemInHands.itemType == ItemType.Instrument && Input.GetKeyDown(KeyCode.Space))
             {
                 TakeDamageAP();
             }

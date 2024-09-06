@@ -14,7 +14,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!oldSlot.isComplete) return;
+        if (!oldSlot&&!oldSlot.isComplete) return;
         GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.75f);
         GetComponentInChildren<Image>().raycastTarget = false;
         transform.SetParent(transform.parent.parent);
@@ -38,7 +38,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             if (newSlot != null)
             {
                 ExchangeSlotData(newSlot);
-                //if (!newSlot.isComplete) NullifySlotData();
             }
         }
     }
@@ -47,33 +46,33 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         ItemScriptableObject item = newSlot.item;
         int amount = newSlot.amount;
         bool isComplete = newSlot.isComplete;
-        GameObject iconGO = newSlot.iconGO;
+        Sprite iconGo = newSlot.iconGO.sprite;
         
         newSlot.item = oldSlot.item;
         newSlot.amount = oldSlot.amount;
         if (oldSlot.isComplete)
         {
-            newSlot.SetIcon(oldSlot.iconGO.GetComponent<Image>().sprite);
+            newSlot.SetIcon(oldSlot.iconGO.sprite);
             newSlot.itemAmount.text = oldSlot.amount.ToString();
         }
         else
         {
-            newSlot.iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            newSlot.iconGO.GetComponent<Image>().sprite = null;
+            newSlot.iconGO.color = new Color(1, 1, 1, 0);
+            newSlot.iconGO.sprite = null;
             newSlot.itemAmount.text = "";
         }
         newSlot.isComplete = oldSlot.isComplete;
         oldSlot.item = item;
         oldSlot.amount = amount;
         if (isComplete)
-        {
-            oldSlot.SetIcon(iconGO.GetComponent<Image>().sprite);
+        { 
+            oldSlot.SetIcon(iconGo);
             oldSlot.itemAmount.text = amount.ToString();
         }
         else
         {
-            oldSlot.iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            oldSlot.iconGO.GetComponent<Image>().sprite = null;
+            oldSlot.iconGO.color = new Color(1, 1, 1, 0);
+            oldSlot.iconGO.sprite = null;
             oldSlot.itemAmount.text = "";
         }
         oldSlot.isComplete = isComplete;

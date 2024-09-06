@@ -443,8 +443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   amount: 0
-  iconGO: {fileID: 0}
-  itemAmount: {fileID: 0}
+  iconGO: {fileID: 7913704699793061515}
+  itemAmount: {fileID: 1939291633929472025}
 --- !u!114 &5265333280766219528
 MonoBehaviour:
   m_ObjectHideFlags: 0

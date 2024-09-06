@@ -49,6 +49,5 @@ public class DigitSwitching : MonoBehaviour
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
             || currentItem.amount <= 0) return;
         _playerController.itemInHands = currentItem.item;
-        print("itemInHands " + _playerController.itemInHands);
     }
 }

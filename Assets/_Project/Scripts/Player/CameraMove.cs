@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     public Transform player;
-    public Vector3 _offset;
+    private Vector3 _offset;
     public float smoothSpeed = 0.225f;
 
     void Start()
