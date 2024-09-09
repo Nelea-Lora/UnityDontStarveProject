@@ -18,5 +18,5 @@ MonoBehaviour:
   maximumAmount: 1
   itemDescription: 
   icon: {fileID: 21300000, guid: c90368277849cc54d8cd8834d54c97db, type: 3}
-  forceAmount: 0.2
+  forceAmount: 0.3
   instrumentType: 0

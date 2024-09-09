@@ -14,7 +14,7 @@ public class HealthSystem : MonoBehaviour
     private float _currentHealth;
     private float _currentHunger;
     private float _currentMind;
-    [SerializeField] private float _timeHunder;
+    [SerializeField] private float _timeHunger;
     void Start()
     {
         _currentHealth = maxHealth;
@@ -42,9 +42,9 @@ public class HealthSystem : MonoBehaviour
         UpdateHealthUI(_currentHealth, _health);
     }
 
-    public void GettingHungry()
+    private void GettingHungry()
     {
-        _currentHunger -= Time.time*_timeHunder;
+        _currentHunger -= Time.time*_timeHunger;
         UpdateHealthUI(_currentHunger, _hunger);
     }
 
@@ -56,6 +56,12 @@ public class HealthSystem : MonoBehaviour
             _currentHealth = maxHealth;
         }
         UpdateHealthUI(_currentHealth, _health);
+    }
+
+    public void Eat(float eat)
+    {
+        _currentHunger += eat;
+        UpdateHealthUI(_currentHunger, _hunger);
     }
     void UpdateHealthUI(float currentAmount, Image sliderH)
     {

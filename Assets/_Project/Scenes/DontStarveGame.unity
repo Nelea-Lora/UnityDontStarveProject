@@ -2324,7 +2324,7 @@ MonoBehaviour:
   _hunger: {fileID: 437378475}
   _mind: {fileID: 1869827194}
   maxHealth: 1
-  _timeHunder: 0.00001
+  _timeHunger: 0.000001
 --- !u!114 &1134215881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2357,6 +2357,113 @@ MonoBehaviour:
   _playerCollision: {fileID: 1134215878}
   _healthSystem: {fileID: 1134215880}
   _playerController: {fileID: 1134215872}
+--- !u!1 &1144693187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1144693188}
+  - component: {fileID: 1144693189}
+  m_Layer: 0
+  m_Name: DayTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1144693188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144693187}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.9411817, y: 2.7621999, z: -3.2955303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1144693189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144693187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fb04692fb519148a5ce58b18408e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionalLightGradient:
+    serializedVersion: 2
+    key0: {r: 0.5490566, g: 0.7139133, b: 0.9150943, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  ambientLightGradient:
+    serializedVersion: 2
+    key0: {r: 0.065539345, g: 0.09437168, b: 0.13207549, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  timeDayInSeconds: 71
+  timeProgress: 0
+  dirLight: {fileID: 74573175}
 --- !u!1001 &1145656746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4516,7 +4623,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 55290d138f7a73b4d832f321c7741bc4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5233,23 +5340,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.8108
+      value: 8.81677
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.8108
+      value: 8.81677
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.8108
+      value: 8.81677
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.13
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.79
+      value: 10.2
       objectReference: {fileID: 0}
     - target: {fileID: 6926681937426942748, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5362,3 +5469,4 @@ SceneRoots:
   - {fileID: 5490889649265619276}
   - {fileID: 1236296650}
   - {fileID: 8827711116244251518}
+  - {fileID: 1144693188}
