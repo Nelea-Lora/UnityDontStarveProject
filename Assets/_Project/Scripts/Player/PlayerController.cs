@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     private Vector3 _movingVector;
-    private Vector3 _movingClick;
     private float _horizontalLimitValue;
     private float _verticalLimitValue;
     private bool _isChecked;
     public ItemScriptableObject itemInHands;
-    private Camera _camera;
-    private bool _isMoving;
-
+    [SerializeField] private DayTime day;
+    [SerializeField] private Sprite bosorkaDay;
+    [SerializeField] private Sprite bosorkaNight;
+    private SpriteRenderer _spriteRenderer;
     void Start()
     {
-        _camera = Camera.main;
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (_spriteRenderer != null) _spriteRenderer.sprite = bosorkaDay;
         _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
         _verticalLimitValue = FloorBoundaries.verticalLimitValue;
     }
@@ -24,18 +26,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float axis;
-            if (Input.GetAxis("Horizontal") != 0)
-            {
-                axis = Input.GetAxis("Horizontal");
-                _movingVector = new Vector3(axis * speed, 0, 0);
-                MovingWasd();
-            }
-            else if (Input.GetAxis("Vertical") != 0)
-            {
-                axis = Input.GetAxis("Vertical");
-                _movingVector = new Vector3(0, axis * speed, 0);
-                MovingWasd();
-            }
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            axis = Input.GetAxis("Horizontal");
+            _movingVector = new Vector3(axis * speed, 0, 0);
+            MovingWasd();
+        }
+        else if (Input.GetAxis("Vertical") != 0)
+        {
+            axis = Input.GetAxis("Vertical");
+            _movingVector = new Vector3(0, axis * speed, 0);
+            MovingWasd();
+        }    
+        if (day && day.DayProgress() > 0.5f && day.DayProgress() < 0.6f) 
+            _spriteRenderer.sprite = bosorkaNight;
+        if (day && day.DayProgress() == 0f) _spriteRenderer.sprite = bosorkaDay;
     }
 
     private void MovingWasd()

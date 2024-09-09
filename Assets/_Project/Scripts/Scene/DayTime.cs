@@ -21,4 +21,9 @@ public class DayTime : MonoBehaviour
         dirLight.transform.localEulerAngles = new Vector3(360f * timeProgress - 90,
             _defaultAngles.x, _defaultAngles.z);
     }
+
+    public float DayProgress()
+    {
+        return timeProgress;
+    }
 }

@@ -15,6 +15,7 @@ public class HealthSystem : MonoBehaviour
     private float _currentHunger;
     private float _currentMind;
     [SerializeField] private float _timeHunger;
+    [SerializeField] private DayTime day;
     void Start()
     {
         _currentHealth = maxHealth;
@@ -28,6 +29,7 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         GettingHungry();
+        if (day is not null && day.DayProgress() > 0.4) LoseMind();
     }
 
     public void TakeDamage(float damage)
@@ -45,7 +47,14 @@ public class HealthSystem : MonoBehaviour
     private void GettingHungry()
     {
         _currentHunger -= Time.time*_timeHunger;
+        if(_currentHunger<0.2)TakeDamage(0.00002f);
         UpdateHealthUI(_currentHunger, _hunger);
+    }
+
+    private void LoseMind()
+    {
+        _currentMind -= 0.00001f; 
+        UpdateHealthUI(_currentMind, _mind);
     }
 
     public void Heal(float amount)
