@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7924181021848447903, guid: 4ec56782963a5664b9fd7d1ba3ccd04e, type: 3}
-  itemType: 3
+  itemType: 2
   itemName: Stone
   maximumAmount: 16
   itemDescription: 

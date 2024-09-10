@@ -2,5 +2,5 @@ using UnityEngine;
 
 public enum InstrumentType
 {
-    Axe, Shovel, Spear
+    Axe, Shovel, Spear, Light
 }
