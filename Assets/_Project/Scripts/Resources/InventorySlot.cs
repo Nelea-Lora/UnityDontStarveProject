@@ -43,4 +43,5 @@ public class InventorySlot : MonoBehaviour
         amount -=1;
         itemAmount.text = amount.ToString();
     }
+    
 }

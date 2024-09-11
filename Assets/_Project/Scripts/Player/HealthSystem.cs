@@ -35,7 +35,6 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
-        print(_currentHealth);
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;

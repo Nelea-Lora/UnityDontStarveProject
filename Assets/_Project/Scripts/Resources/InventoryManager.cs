@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     private Item _itemTmp;
     [SerializeField] private DigitSwitching _digitSwitching;
     [SerializeField] private HealthSystem _healthSystem;
+    private bool _itemAdded;
 
     void Start()
     {
@@ -37,7 +38,8 @@ public class InventoryManager : MonoBehaviour
     {
         if (!_itemTmp) return;
         AddItem(_itemTmp._Item, _itemTmp._amount);
-        Destroy(_itemTmp.gameObject);
+        if (_itemAdded)Destroy(_itemTmp.gameObject);
+        _itemAdded = false;
     }
     void OnItemTriggerEnter(Item item)
     {
@@ -59,6 +61,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot.amount += _amount;
                     slot.itemAmount.text = slot.amount.ToString();
+                    _itemAdded = true;
                     return;
                 }
                 break;
@@ -73,6 +76,7 @@ public class InventoryManager : MonoBehaviour
                 slot.SlotComplete();
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
+                _itemAdded = true;
                 break;
             }
         }
