@@ -38,9 +38,10 @@ public class InventorySlot : MonoBehaviour
         iconGO.GetComponent<Image>().sprite = null;
         itemAmount.text = "";
     }
-    public void DecreaseSlotData()
+    public void DecreaseSlotData(int numToDecrease)
     {
-        amount -=1;
+        if(amount < numToDecrease)return;
+        amount -=numToDecrease;
         itemAmount.text = amount.ToString();
     }
     

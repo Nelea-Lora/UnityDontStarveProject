@@ -22,3 +22,4 @@ MonoBehaviour:
   instrumentType: 0
   materials:
   - {fileID: 11400000, guid: 3691be9301fd0f64ca967c60a7c87815, type: 2}
+  - {fileID: 11400000, guid: becd6c2966c566f499f9519830197c5a, type: 2}

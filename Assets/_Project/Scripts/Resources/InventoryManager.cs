@@ -97,7 +97,7 @@ public class InventoryManager : MonoBehaviour
             _healthSystem.Eat(foodItem.eatingAmount);
             //_healthSystem.Heal(foodItem.mindAmount);
             if (currentItem.amount <= 1) currentItem.NullifySlotData();
-            else currentItem.DecreaseSlotData();
+            else currentItem.DecreaseSlotData(1);
         }
     }
     

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.UIElements;
@@ -8,23 +8,19 @@ using UnityEngine.UIElements;
 public class CraftManager : MonoBehaviour
 {
     [SerializeField] private InventoryManager _inventoryManager;
-
-    //[SerializeField] private ItemScriptableObject _item;
-    private CraftSlot _craftSlot;
-    private ItemScriptableObject _item;
-    private List<ItemScriptableObject> materialsToUse = new List<ItemScriptableObject>();
+    [SerializeField] private ItemRecipe _item;
     [SerializeField] private CraftPanel _craftPanel;
+    [SerializeField] private TMP_Text _itemName;
     private bool _emptySlot;
 
     void Start()
     {
-        _craftSlot = GetComponentInParent<CraftSlot>();
-        _item = _craftSlot.item;
+        _itemName.text = _item.Otput.item.itemName;
     }
 
     void Update()
     {
-        if (_item.itemType == ItemType.Instrument && _craftPanel.Сreate)
+        if (_craftPanel.Сreate)
         {
             _craftPanel.ItemCreated();
             CraftInstrument();
@@ -33,20 +29,17 @@ public class CraftManager : MonoBehaviour
 
     private void CraftInstrument()
     {
-        if (!_item) return;
+        if (!_item && _item.Input is null) return;
         if (_inventoryManager.slots is null) return;
-        InstrumentItem instrument = _item as InstrumentItem;
-        if (!instrument) return;
-        int allMaterials = instrument.materials.Count;
-        foreach (ItemScriptableObject material in instrument.materials)
+        int allMaterials = _item.Input.Length;
+        foreach (ItemTypeAndCount material in _item.Input)
         {
             foreach (InventorySlot slot in _inventoryManager.slots)
             {
                 VerifySlots();
-                if (slot.item && slot.item == material)
+                if (slot.item && slot.item == material.item && slot.amount>=material.count)
                 {
-                    if (slot.amount == 1) _emptySlot = true;
-                    materialsToUse.Add(slot.item);
+                    if (slot.amount == material.count) _emptySlot = true;
                     allMaterials--;
                     break;
                 }
@@ -54,30 +47,28 @@ public class CraftManager : MonoBehaviour
         }
         print("allMaterials" + allMaterials);
         if (!_emptySlot) return;
-        if (allMaterials == 0 && materialsToUse is not null) CreateItem();
+        if (allMaterials == 0) CreateItem();
     }
 
     private void CreateItem()
     {
-        //if (materialsToUse is null) return;
         print("CreateItem()");
-        for (int i = 0; i < materialsToUse.Count; i++)
+        foreach (ItemTypeAndCount material in _item.Input)
         {
             foreach (InventorySlot slot in _inventoryManager.slots)
             {
-                if (slot.item == materialsToUse[i])
+                if (slot.item == material.item)
                 {
                     print("slot.item " + slot.item);
                     print("slot.amount " + slot.amount);
-                    if (slot.amount <= 1) slot.NullifySlotData();
-                    else slot.DecreaseSlotData();
+                    if (slot.amount <= material.count) slot.NullifySlotData();
+                    else slot.DecreaseSlotData(material.count);
                     print("slot.amount " + slot.amount);
                     break;
                 }
             }
         }
-        materialsToUse.Clear();
-        _inventoryManager.AddItem(_item, 1);
+        _inventoryManager.AddItem(_item.Otput.item, _item.Otput.count);
         _emptySlot = false;
     }
     public void VerifySlots()
