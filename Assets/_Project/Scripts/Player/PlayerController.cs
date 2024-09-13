@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private float _verticalLimitValue;
     private bool _isChecked;
     public ItemScriptableObject itemInHands;
+    private GameObject _tmpItemInHands;
+    public GameObject rightHand;
     [SerializeField] private DayTime day;
     [SerializeField] private Sprite bosorkaDay;
     [SerializeField] private Sprite bosorkaNight;
@@ -50,4 +52,22 @@ public class PlayerController : MonoBehaviour
         newPosition.y = Mathf.Clamp(newPosition.y, -_verticalLimitValue, _verticalLimitValue);
         transform.position = newPosition;
     }
+
+    public void TakeObjectInRightHand()
+    {
+        if (itemInHands && itemInHands.itemPrefab&& itemInHands.itemPrefab.gameObject)
+        {
+            _tmpItemInHands = Instantiate(itemInHands.itemPrefab.gameObject, 
+                rightHand.transform.position, Quaternion.identity, rightHand.transform);
+        }
+    }
+
+    public void ItIsAnotherObjectInHand()
+    {
+        if (itemInHands && itemInHands.itemPrefab&& itemInHands.itemPrefab.gameObject)
+        {
+            Destroy(_tmpItemInHands);
+        }
+    }
+    
 }

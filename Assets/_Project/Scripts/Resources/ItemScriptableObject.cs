@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType {Food, Instrument, Material, CookedFood}
+public enum ItemType {Food, Instrument, Material, Light, CookedFood}
 public class ItemScriptableObject : ScriptableObject
 {
     public GameObject itemPrefab;

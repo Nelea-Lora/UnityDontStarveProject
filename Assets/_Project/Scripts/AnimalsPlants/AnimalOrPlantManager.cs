@@ -75,9 +75,8 @@ public class AnimalOrPlantManager : MonoBehaviour
 
     private void Death()
     {
-        print("Death");
         if(_animalOrPlantTmp.animalPlant.items==null) return;
-        print(_animalOrPlantTmp.animalPlant+" death");
+        print(_animalOrPlantTmp.animalPlant+"'s death");
         for (int i = 0; i < _animalOrPlantTmp.animalPlant.items.Count; i++)
         {
            Item item = _animalOrPlantTmp.animalPlant.items[i];

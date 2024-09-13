@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
@@ -9,10 +10,16 @@ public class DigitSwitching : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
     public int currentSlotID ;
+    private int _tmpCurrentSlotID ;
     [SerializeField]private Sprite selectedImage;
     [SerializeField]private Sprite notSelectedImage;
     public Transform slotParent;
-    
+
+    private void Start()
+    {
+        _tmpCurrentSlotID = slotParent.childCount;
+    }
+
     void Update()
     {
         for(int i = 0; i < slotParent.childCount; i++)
@@ -24,6 +31,7 @@ public class DigitSwitching : MonoBehaviour
                     {
                         slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
                         TakeItemInHands();
+                        _tmpCurrentSlotID = currentSlotID;
                     }
                     // else
                     // {
@@ -33,10 +41,12 @@ public class DigitSwitching : MonoBehaviour
                 }
                 else
                 {
+                    if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
                     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = notSelectedImage;
                     currentSlotID = i;
                     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
                     TakeItemInHands();
+                    _tmpCurrentSlotID = currentSlotID;
                 }
             }
         }
@@ -49,5 +59,7 @@ public class DigitSwitching : MonoBehaviour
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
             || currentItem.amount <= 0) return;
         _playerController.itemInHands = currentItem.item;
+        if(_playerController.itemInHands &&_tmpCurrentSlotID != currentSlotID)
+            _playerController.TakeObjectInRightHand();
     }
 }
