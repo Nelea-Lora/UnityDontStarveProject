@@ -61,6 +61,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot.amount += _amount;
                     slot.itemAmount.text = slot.amount.ToString();
+                    if (slot.item.maxTimeShelfLife>0)slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
                     _itemAdded = true;
                     return;
                 }
@@ -76,6 +77,7 @@ public class InventoryManager : MonoBehaviour
                 slot.SlotComplete();
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
+                if (slot.item.maxTimeShelfLife>0)slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
                 _itemAdded = true;
                 break;
             }
@@ -95,7 +97,7 @@ public class InventoryManager : MonoBehaviour
             if(!foodItem)return;
             _healthSystem.Heal(foodItem.healingAmount);
             _healthSystem.Eat(foodItem.eatingAmount);
-            //_healthSystem.Heal(foodItem.mindAmount);
+            _healthSystem.IncreaseMind(foodItem.mindAmount);
             if (currentItem.amount <= 1) currentItem.NullifySlotData();
             else currentItem.DecreaseSlotData(1);
         }

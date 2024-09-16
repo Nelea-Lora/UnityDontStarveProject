@@ -53,6 +53,7 @@ public class HealthSystem : MonoBehaviour
     private void LoseMind()
     {
         _currentMind -= 0.00001f; 
+        if(_currentMind<0.2)TakeDamage(0.00002f);
         UpdateHealthUI(_currentMind, _mind);
     }
 
@@ -69,7 +70,21 @@ public class HealthSystem : MonoBehaviour
     public void Eat(float eat)
     {
         _currentHunger += eat;
+        if (_currentHunger > maxHealth)
+        {
+            _currentHunger = maxHealth;
+        }
         UpdateHealthUI(_currentHunger, _hunger);
+    }
+
+    public void IncreaseMind(float amount)
+    {
+        _currentMind += amount;
+        if (_currentMind > maxHealth)
+        {
+            _currentMind = maxHealth;
+        }
+        UpdateHealthUI(_currentMind, _mind);
     }
     void UpdateHealthUI(float currentAmount, Image sliderH)
     {

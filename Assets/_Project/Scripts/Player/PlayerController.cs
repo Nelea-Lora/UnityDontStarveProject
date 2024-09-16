@@ -64,9 +64,10 @@ public class PlayerController : MonoBehaviour
 
     public void ItIsAnotherObjectInHand()
     {
-        if (itemInHands && itemInHands.itemPrefab&& itemInHands.itemPrefab.gameObject)
+        if (_tmpItemInHands && itemInHands && itemInHands.itemPrefab&& itemInHands.itemPrefab.gameObject)
         {
             Destroy(_tmpItemInHands);
+            itemInHands = null;
         }
     }
     
