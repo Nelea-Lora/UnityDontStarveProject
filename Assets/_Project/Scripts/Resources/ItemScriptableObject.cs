@@ -13,4 +13,5 @@ public class ItemScriptableObject : ScriptableObject
     public Sprite icon;
     public float maxTimeShelfLife;
     public float currTimeShelfLife;
+    public bool build;
 }

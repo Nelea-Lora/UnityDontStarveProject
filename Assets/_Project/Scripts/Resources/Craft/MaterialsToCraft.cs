@@ -14,13 +14,11 @@ public class MaterialsToCraft : MonoBehaviour
         int imageIndex;
         for (imageIndex = 0; imageIndex < _item.Input.Length; imageIndex++ )
         {
-            print("MaterialsToCraft");
             TMP_Text textInChildren = transform.GetChild(imageIndex).GetComponentInChildren<TMP_Text>();
             if(!textInChildren)return;
             var componentInChildren = transform.GetChild(imageIndex).GetComponent<Image>();
             if(!componentInChildren)return;
             componentInChildren.sprite = _item.Input[imageIndex].item.icon;
-            print("_item.Input[imageIndex].item"+_item.Input[imageIndex].item);
             textInChildren.text = _item.Input[imageIndex].count.ToString();
         }
     }
