@@ -9,8 +9,8 @@ public class AnimalOrPlantManager : MonoBehaviour
     [SerializeField] private HealthSystem _healthSystem;
     [SerializeField] private PlayerController _playerController;
     private AnimalOrPlant _animalOrPlantTmp;
-    private float _damageAdd;
     private bool _attackAdded;
+    public bool AttackByInstrument { get; private set; }
     void Start()
     {
         _playerCollision.OnAnimalOrPlantTriggerEnter += OnAnimalOrPlantTriggerEnter;
@@ -25,6 +25,7 @@ public class AnimalOrPlantManager : MonoBehaviour
             {
                 GiveDamage(); _attackAdded = true;
             }
+            AttackByInstrument = false;
             if (_playerController&& _playerController.itemInHands&& 
                 _playerController.itemInHands.itemType == ItemType.Instrument && Input.GetKeyDown(KeyCode.Space))
             {
@@ -60,15 +61,20 @@ public class AnimalOrPlantManager : MonoBehaviour
         if (_animalOrPlantTmp.animalPlant.animalPlantType is AnimalPlantType.Attaker or AnimalPlantType.Runner)
         {
             _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
+            AttackByInstrument = true;
         }
         else if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Vegetable)
         {
             Vegetable vegetable = _animalOrPlantTmp.animalPlant as Vegetable;
-            if(vegetable && vegetable.instrumentType == instrumentItem.instrumentType)
-            {_animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;}
+            if (vegetable && vegetable.instrumentType == instrumentItem.instrumentType)
+            {
+                _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
+                AttackByInstrument = true;
+            }
         }
         if (_animalOrPlantTmp.animalPlant.healthLevel <= 0)
         {
+            AttackByInstrument = false;
             Death();
         }
     }

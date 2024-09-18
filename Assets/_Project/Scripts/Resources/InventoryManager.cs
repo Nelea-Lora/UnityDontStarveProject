@@ -6,19 +6,19 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private PlayerCollision _playerCollision;
+    [SerializeField] private PlayerController _playerController;
     public Transform _inventoryPanel;
     public List<InventorySlot> slots = new List<InventorySlot>();
-    private Camera _mainCamera;
     private Item _itemTmp;
     [SerializeField] private DigitSwitching _digitSwitching;
     [SerializeField] private HealthSystem _healthSystem;
     private bool _itemAdded;
+    //private int _itemID = 1;
 
     void Start()
     {
         _playerCollision.OnItemTriggerEnter += OnItemTriggerEnter;
         _playerCollision.OnItemTriggerExit += OnItemTriggerExit;
-        _mainCamera = Camera.main;
         for (int i = 0; i < _inventoryPanel.childCount; i++)
         {
             if (_inventoryPanel.GetChild(i).GetComponent<InventorySlot>()!=null)
@@ -61,12 +61,9 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot.amount += _amount;
                     slot.itemAmount.text = slot.amount.ToString();
-                    if (slot.item.maxTimeShelfLife > 0)
-                    {
-                        slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
-                        slot.ShelfMaxTime();
-                        slot.UpdateShelfUI(slot.item.currTimeShelfLife);
-                    }
+                    ChangeTimeShelfLife(slot);
+                    //slot.itemID = _itemID;
+                    //_itemID++;
                     _itemAdded = true;
                     return;
                 }
@@ -77,23 +74,18 @@ public class InventoryManager : MonoBehaviour
         {
             if (!slot.isComplete)
             {
-                slot.item = _item;
+                if(_item.maximumAmount==1)slot.item = Instantiate(_item);
+                else slot.item = _item;
                 slot.amount = _amount;
                 slot.SlotComplete();
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
-                if (slot.item.maxTimeShelfLife > 0)
-                {
-                    slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
-                    slot.ShelfMaxTime();
-                    slot.UpdateShelfUI(slot.item.currTimeShelfLife);
-                }
+                ChangeTimeShelfLife(slot);
                 _itemAdded = true;
                 break;
             }
         }
     }
-
     private void UseItem()
     {
         if (!_digitSwitching) return;
@@ -103,14 +95,30 @@ public class InventoryManager : MonoBehaviour
             || currentItem.amount <= 0) return;
         if (currentItem.item.itemType == ItemType.Food)
         {
-            FoodItem foodItem = currentItem.item as FoodItem;
-            if(!foodItem)return;
-            _healthSystem.Heal(foodItem.healingAmount);
-            _healthSystem.Eat(foodItem.eatingAmount);
+            FoodItem foodItem = currentItem.item as FoodItem; if(!foodItem)return;
+            _healthSystem.Heal(foodItem.healingAmount); _healthSystem.Eat(foodItem.eatingAmount);
             _healthSystem.IncreaseMind(foodItem.mindAmount);
-            if (currentItem.amount <= 1) currentItem.NullifySlotData();
+            if (currentItem.amount <= 1)
+            {
+                currentItem.NullifySlotData();
+                _playerController.ItIsAnotherObjectInHand();
+            }
             else currentItem.DecreaseSlotData(1);
         }
     }
-    
+
+    private void ChangeTimeShelfLife(InventorySlot slot)
+    {
+        if (slot.item.maxTimeShelfLife > 0)
+        {
+            slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
+            if (slot.item.itemType == ItemType.Food)
+            {
+                slot.ShelfMaxTime();
+                slot.UpdateShelfSliderUI(slot.item.currTimeShelfLife);
+            }
+            if (slot.item.itemType is ItemType.Instrument or ItemType.Light)
+                slot.UpdateShelfPercentageUI(slot.item.maxTimeShelfLife, slot.item.currTimeShelfLife);
+        }
+    }
 }

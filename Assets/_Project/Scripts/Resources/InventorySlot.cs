@@ -13,6 +13,8 @@ public class InventorySlot : MonoBehaviour
     public Image iconGO;
     public TMP_Text itemAmount;
     [SerializeField] private Slider _shelfLifeSlider;
+    [SerializeField] private TMP_Text _shelfLifePercentage;
+    //public int itemID;
     internal bool isComplete { get; set; }
 
     public void SlotComplete()
@@ -32,12 +34,15 @@ public class InventorySlot : MonoBehaviour
     }
     public void NullifySlotData()
     {
+        //itemID = 0;
         item = null;
         amount = 0;
         isComplete = false;
-        iconGO.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        iconGO.GetComponent<Image>().sprite = null;
+        iconGO.color = new Color(1, 1, 1, 0);
+        iconGO.sprite = null;
         itemAmount.text = "";
+        _shelfLifePercentage.text = "";
+        _shelfLifeSlider.value = 0;
         // if(_playerController.itemInHands && item == _playerController.itemInHands)
         //     _playerController.ItIsAnotherObjectInHand();
     }
@@ -46,7 +51,7 @@ public class InventorySlot : MonoBehaviour
         if(amount < numToDecrease)return;
         amount -=numToDecrease;
         itemAmount.text = amount.ToString();
-        if (item.maxTimeShelfLife>0)item.currTimeShelfLife = item.maxTimeShelfLife;
+        //if (item.maxTimeShelfLife>0)item.currTimeShelfLife = item.maxTimeShelfLife;
         if (amount <= 0) NullifySlotData();
     }
 
@@ -55,11 +60,19 @@ public class InventorySlot : MonoBehaviour
         _shelfLifeSlider.maxValue = item.maxTimeShelfLife;
     }
 
-    public void UpdateShelfUI(float currentAmount)
+    public void UpdateShelfSliderUI(float currentTime)
     {
         if (_shelfLifeSlider)
         {
-            _shelfLifeSlider.value = currentAmount;
+            _shelfLifeSlider.value = currentTime;
+        }
+    }
+    public void UpdateShelfPercentageUI(float maxTime, float currentTime)
+    {
+        if (_shelfLifePercentage)
+        {
+            int percentage = (int)((int)(currentTime * 100) / maxTime);
+            _shelfLifePercentage.text = percentage+"%";
         }
     }
     

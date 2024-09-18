@@ -45,7 +45,7 @@ public class HealthSystem : MonoBehaviour
 
     private void GettingHungry()
     {
-        _currentHunger -= Time.time*_timeHunger;
+        _currentHunger -= _timeHunger;
         if(_currentHunger<0.2)TakeDamage(0.00002f);
         UpdateHealthUI(_currentHunger, _hunger);
     }

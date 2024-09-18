@@ -10,14 +10,14 @@ public class DigitSwitching : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
     public int currentSlotID ;
-    private int _tmpCurrentSlotID ;
+    public int tmpCurrentSlotID ;
     [SerializeField]private Sprite selectedImage;
     [SerializeField]private Sprite notSelectedImage;
     public Transform slotParent;
 
     private void Start()
     {
-        _tmpCurrentSlotID = slotParent.childCount;
+        tmpCurrentSlotID = slotParent.childCount;
     }
 
     void Update()
@@ -31,7 +31,7 @@ public class DigitSwitching : MonoBehaviour
                     {
                         slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
                         TakeItemInHands();
-                        _tmpCurrentSlotID = currentSlotID;
+                        tmpCurrentSlotID = currentSlotID;
                     }
                     // else
                     // {
@@ -46,7 +46,7 @@ public class DigitSwitching : MonoBehaviour
                     currentSlotID = i;
                     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
                     TakeItemInHands();
-                    _tmpCurrentSlotID = currentSlotID;
+                    tmpCurrentSlotID = currentSlotID;
                 }
             }
         }
@@ -59,7 +59,7 @@ public class DigitSwitching : MonoBehaviour
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
             || currentItem.amount <= 0) return;
         _playerController.itemInHands = currentItem.item;
-        if(_playerController.itemInHands &&_tmpCurrentSlotID != currentSlotID)
+        if(_playerController.itemInHands &&tmpCurrentSlotID != currentSlotID)
             _playerController.TakeObjectInRightHand();
     }
 }

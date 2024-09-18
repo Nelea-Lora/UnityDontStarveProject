@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CraftPanel : MonoBehaviour
 {
     [SerializeField] private GameObject _craftPanel;
-    //public bool create;
     public bool Сreate { get;private set; }
     
     void Awake()
@@ -17,11 +17,13 @@ public class CraftPanel : MonoBehaviour
     {
         if(_craftPanel.activeInHierarchy)_craftPanel.SetActive(false);
         else _craftPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void CreateItem()
     {
         Сreate = true;
+        EventSystem.current.SetSelectedGameObject(null);
     }
     public void ItemCreated()
     {
