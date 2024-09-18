@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemWearAndTear : MonoBehaviour
 {
@@ -10,12 +11,13 @@ public class ItemWearAndTear : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private float _shelfLife;
     
+    
     void Update()
     {
-        FoodShelfLife();
+        ItemShelfLife();
     }
 
-    private void FoodShelfLife()
+    private void ItemShelfLife()
     {
         if (_inventoryManager&&_inventoryManager.slots is null) return;
         foreach (InventorySlot slot in _inventoryManager.slots)
@@ -26,6 +28,7 @@ public class ItemWearAndTear : MonoBehaviour
                                                       && _nightmersConroller.PointLightStatus))
             {
                 slot.item.currTimeShelfLife -= Time.time * _shelfLife;
+                slot.UpdateShelfUI(slot.item.currTimeShelfLife);
             }
             else if (slot.item.itemType == ItemType.Instrument && Input.GetKeyDown(KeyCode.Space))
             {
@@ -42,6 +45,17 @@ public class ItemWearAndTear : MonoBehaviour
                 }
                 slot.DecreaseSlotData(1);
             }
+            // if (_shelfLifeSlider)
+            // {
+            //     if (slot.item.itemType == ItemType.Food) UpdateShelfUI(slot.item.currTimeShelfLife);
+            // }
         }
     }
+    // void UpdateShelfUI(float currentAmount)
+    // {
+    //     if (_shelfLifeSlider)
+    //     {
+    //         _shelfLifeSlider.value = currentAmount;
+    //     }
+    // }
 }

@@ -12,7 +12,7 @@ public class InventorySlot : MonoBehaviour
     public int amount;
     public Image iconGO;
     public TMP_Text itemAmount;
-    //[SerializeField] private PlayerController _playerController;
+    [SerializeField] private Slider _shelfLifeSlider;
     internal bool isComplete { get; set; }
 
     public void SlotComplete()
@@ -48,6 +48,19 @@ public class InventorySlot : MonoBehaviour
         itemAmount.text = amount.ToString();
         if (item.maxTimeShelfLife>0)item.currTimeShelfLife = item.maxTimeShelfLife;
         if (amount <= 0) NullifySlotData();
+    }
+
+    public void ShelfMaxTime()
+    {
+        _shelfLifeSlider.maxValue = item.maxTimeShelfLife;
+    }
+
+    public void UpdateShelfUI(float currentAmount)
+    {
+        if (_shelfLifeSlider)
+        {
+            _shelfLifeSlider.value = currentAmount;
+        }
     }
     
 }

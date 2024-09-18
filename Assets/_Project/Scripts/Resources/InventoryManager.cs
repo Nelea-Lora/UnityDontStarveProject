@@ -61,7 +61,12 @@ public class InventoryManager : MonoBehaviour
                 {
                     slot.amount += _amount;
                     slot.itemAmount.text = slot.amount.ToString();
-                    if (slot.item.maxTimeShelfLife>0)slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
+                    if (slot.item.maxTimeShelfLife > 0)
+                    {
+                        slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
+                        slot.ShelfMaxTime();
+                        slot.UpdateShelfUI(slot.item.currTimeShelfLife);
+                    }
                     _itemAdded = true;
                     return;
                 }
@@ -77,7 +82,12 @@ public class InventoryManager : MonoBehaviour
                 slot.SlotComplete();
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
-                if (slot.item.maxTimeShelfLife>0)slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
+                if (slot.item.maxTimeShelfLife > 0)
+                {
+                    slot.item.currTimeShelfLife = slot.item.maxTimeShelfLife;
+                    slot.ShelfMaxTime();
+                    slot.UpdateShelfUI(slot.item.currTimeShelfLife);
+                }
                 _itemAdded = true;
                 break;
             }
