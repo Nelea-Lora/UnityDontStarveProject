@@ -26,8 +26,9 @@ public class ItemWearAndTear : MonoBehaviour
         {
             if(!slot||!slot.item || slot.item.currTimeShelfLife<=0)continue;
             if ((slot.item.itemType == ItemType.Instrument || slot.item.itemType == ItemType.Light)&&
-                _playerController && _playerController.itemInHands && 
-                slot != _inventoryManager.slots[_digitSwitching.tmpCurrentSlotID]) continue;
+                _playerController && _playerController.itemInHands 
+                &&0<_digitSwitching.tmpCurrentSlotID&&_digitSwitching.tmpCurrentSlotID<_inventoryManager.slots.Count
+                && slot != _inventoryManager.slots[_digitSwitching.tmpCurrentSlotID]) continue;
             if (slot.item.itemType == ItemType.Food || (slot.item.itemType == ItemType.Light 
                                                         && _nightmersConroller 
                                                         && _nightmersConroller.PointLightStatus))

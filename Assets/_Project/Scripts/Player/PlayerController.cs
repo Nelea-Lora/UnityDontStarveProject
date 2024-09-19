@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private float _verticalLimitValue;
     private bool _isChecked;
     public ItemScriptableObject itemInHands;
+    public ItemScriptableObject _TMPitemInHands;
     private GameObject _tmpItemInHands;
     public GameObject rightHand;
     [SerializeField] private DayTime day;
@@ -43,6 +44,9 @@ public class PlayerController : MonoBehaviour
         if (day && day.DayProgress() > 0.5f && day.DayProgress() < 0.6f) 
             _spriteRenderer.sprite = bosorkaNight;
         if (day && day.DayProgress() == 0f) _spriteRenderer.sprite = bosorkaDay;
+        if (_TMPitemInHands && itemInHands && itemInHands.itemPrefab && itemInHands.itemPrefab.gameObject
+            && _TMPitemInHands != itemInHands)
+            ItIsAnotherObjectInHand();
     }
 
     private void MovingWasd()
@@ -57,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if (itemInHands && itemInHands.itemPrefab&& itemInHands.itemPrefab.gameObject)
         {
+            _TMPitemInHands = itemInHands;
             _tmpItemInHands = Instantiate(itemInHands.itemPrefab.gameObject, 
                 rightHand.transform.position, Quaternion.identity, rightHand.transform);
         }

@@ -3108,6 +3108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   itemInHands: {fileID: 0}
+  _TMPitemInHands: {fileID: 0}
   rightHand: {fileID: 801302349}
   day: {fileID: 1144693189}
   bosorkaDay: {fileID: 21300000, guid: 60e63233d89e8a04191506d0c9d6fac8, type: 3}
@@ -5802,6 +5803,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1134215877}
+    - target: {fileID: 4246404774820244451, guid: 593d0da4d25c1564799a8335b6a10e3d, type: 3}
+      propertyPath: _digitSwitching
+      value: 
+      objectReference: {fileID: 1542428046}
     - target: {fileID: 5321467487943806341, guid: 593d0da4d25c1564799a8335b6a10e3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

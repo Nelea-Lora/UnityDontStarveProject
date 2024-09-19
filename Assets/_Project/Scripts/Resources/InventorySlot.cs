@@ -72,7 +72,8 @@ public class InventorySlot : MonoBehaviour
         if (_shelfLifePercentage)
         {
             int percentage = (int)((int)(currentTime * 100) / maxTime);
-            _shelfLifePercentage.text = percentage+"%";
+            if(percentage == 0)_shelfLifePercentage.text = "";
+            else _shelfLifePercentage.text = percentage+"%";
         }
     }
     

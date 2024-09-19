@@ -33,11 +33,11 @@ public class DigitSwitching : MonoBehaviour
                         TakeItemInHands();
                         tmpCurrentSlotID = currentSlotID;
                     }
-                    // else
-                    // {
-                    //     print("_image == selectedImage");
-                    //     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = notSelectedImage;
-                    // }
+                    else if(!_playerController.itemInHands)
+                    {
+                        TakeItemInHands();
+                        tmpCurrentSlotID = currentSlotID;
+                    }
                 }
                 else
                 {
@@ -51,15 +51,17 @@ public class DigitSwitching : MonoBehaviour
             }
         }
     }
-    private void TakeItemInHands()
+
+    public void TakeItemInHands()
     {
         if (!_playerController) return;
         InventorySlot currentItem = slotParent.GetChild(currentSlotID)
             .GetComponent<InventorySlot>();
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
             || currentItem.amount <= 0) return;
+        if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
         _playerController.itemInHands = currentItem.item;
-        if(_playerController.itemInHands &&tmpCurrentSlotID != currentSlotID)
+        if (_playerController.itemInHands && tmpCurrentSlotID != currentSlotID)
             _playerController.TakeObjectInRightHand();
     }
 }
