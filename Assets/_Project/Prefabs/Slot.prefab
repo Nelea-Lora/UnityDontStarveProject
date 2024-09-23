@@ -101,7 +101,7 @@ RectTransform:
   m_GameObject: {fileID: 2720008071224708668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0705119, y: 0.19137713, z: 0.9208635}
+  m_LocalScale: {x: 1.0137427, y: 0.1812284, z: 0.8720301}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8989929880140827652}
@@ -238,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oldSlot: {fileID: 0}
   _player: {fileID: 0}
+  _playerController: {fileID: 0}
   _placementMask:
     serializedVersion: 2
     m_Bits: 8

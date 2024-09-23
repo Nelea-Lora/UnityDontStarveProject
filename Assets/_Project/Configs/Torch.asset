@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1250f83d48c33a24e95f55c731f95aa3, type: 3}
-  m_Name: Campfire
+  m_Name: Torch
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8652116720296922735, guid: 2616dd2d55ef89046a6aea96b7d0ace9, type: 3}
+  itemPrefab: {fileID: 1531848819390827279, guid: ad5b628cdf51dfa49bd0da83c073a4f0, type: 3}
   itemType: 3
-  itemName: Fire
+  itemName: Torch
   maximumAmount: 1
-  itemDescription: 
-  icon: {fileID: 21300000, guid: eb5db0903bf6c4b4898f0045f9ff899a, type: 3}
-  maxTimeShelfLife: 0
-  currTimeShelfLife: 0
-  build: 1
+  icon: {fileID: 21300000, guid: cd9aed32b644db54cb320af134d4ca34, type: 3}
+  maxTimeShelfLife: 5
+  currTimeShelfLife: 5
+  burnLevel: 1

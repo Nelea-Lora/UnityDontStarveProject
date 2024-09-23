@@ -9,11 +9,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     public Transform _inventoryPanel;
     public List<InventorySlot> slots = new List<InventorySlot>();
-    private Item _itemTmp;
+    public Item itemTmp;
     [SerializeField] private DigitSwitching _digitSwitching;
     [SerializeField] private HealthSystem _healthSystem;
     private bool _itemAdded;
-    //private int _itemID = 1;
 
     void Start()
     {
@@ -36,19 +35,20 @@ public class InventoryManager : MonoBehaviour
 
     private void GetItem()
     {
-        if (!_itemTmp) return;
-        AddItem(_itemTmp._Item, _itemTmp._amount);
-        if (_itemAdded)Destroy(_itemTmp.gameObject);
+        if (!itemTmp) return;
+        if (itemTmp && itemTmp._Item&& itemTmp._Item.itemType==ItemType.BuildItem) return;
+        AddItem(itemTmp._Item, itemTmp._amount);
+        if (_itemAdded)Destroy(itemTmp.gameObject);
         _itemAdded = false;
     }
     void OnItemTriggerEnter(Item item)
     {
-        _itemTmp = item;
+        itemTmp = item;
     }
 
     private void OnItemTriggerExit(Item item)
     {
-        _itemTmp = null;
+        itemTmp = null;
     }
 
     public void AddItem(ItemScriptableObject _item, int _amount)
@@ -74,7 +74,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (!slot.isComplete)
             {
-                if(_item.maximumAmount==1)slot.item = Instantiate(_item);
+                if(_item.maximumAmount==1)slot.item = Instantiate(_item);//Нужно делать где-то Destroy?
                 else slot.item = _item;
                 slot.amount = _amount;
                 slot.SlotComplete();

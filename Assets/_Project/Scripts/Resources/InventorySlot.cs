@@ -34,7 +34,7 @@ public class InventorySlot : MonoBehaviour
     }
     public void NullifySlotData()
     {
-        //itemID = 0;
+        if(item.maximumAmount==1)Destroy(item);
         item = null;
         amount = 0;
         isComplete = false;
@@ -43,15 +43,12 @@ public class InventorySlot : MonoBehaviour
         itemAmount.text = "";
         _shelfLifePercentage.text = "";
         _shelfLifeSlider.value = 0;
-        // if(_playerController.itemInHands && item == _playerController.itemInHands)
-        //     _playerController.ItIsAnotherObjectInHand();
     }
     public void DecreaseSlotData(int numToDecrease)
     {
         if(amount < numToDecrease)return;
         amount -=numToDecrease;
         itemAmount.text = amount.ToString();
-        //if (item.maxTimeShelfLife>0)item.currTimeShelfLife = item.maxTimeShelfLife;
         if (amount <= 0) NullifySlotData();
     }
 

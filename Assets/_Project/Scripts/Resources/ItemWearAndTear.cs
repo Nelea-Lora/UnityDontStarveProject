@@ -27,10 +27,8 @@ public class ItemWearAndTear : MonoBehaviour
             if(!slot||!slot.item || slot.item.currTimeShelfLife<=0)continue;
             if ((slot.item.itemType == ItemType.Instrument || slot.item.itemType == ItemType.Light)&&
                 _playerController && _playerController.itemInHands 
-                &&0<_digitSwitching.tmpCurrentSlotID&&_digitSwitching.tmpCurrentSlotID<_inventoryManager.slots.Count
-                && slot != _inventoryManager.slots[_digitSwitching.tmpCurrentSlotID]) continue;
-            if (slot.item.itemType == ItemType.Food || (slot.item.itemType == ItemType.Light 
-                                                        && _nightmersConroller 
+                && slot.item != _playerController.itemInHands) continue;
+            if (slot.item.itemType == ItemType.Food || (slot.item.itemType == ItemType.Light && _nightmersConroller 
                                                         && _nightmersConroller.PointLightStatus))
             {
                 slot.item.currTimeShelfLife -= _shelfLife;
@@ -49,8 +47,9 @@ public class ItemWearAndTear : MonoBehaviour
                     _playerController.ItIsAnotherObjectInHand();
                     if(_playerController.itemInHands)print("Item in hands "+_playerController.itemInHands );
                 }
-                slot.DecreaseSlotData(1);
+                slot.DecreaseSlotData(slot.amount);
                 if(slot.item)ChangeShelfUI(slot);
+                if(slot.item == _playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
             }
         }
     }

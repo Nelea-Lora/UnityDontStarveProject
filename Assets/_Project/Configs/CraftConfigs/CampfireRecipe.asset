@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Campfire
   Input:
-  - item: {fileID: 11400000, guid: 3691be9301fd0f64ca967c60a7c87815, type: 2}
+  - item: {fileID: 11400000, guid: b57428e815125094a824bd215f8ba9f6, type: 2}
     count: 2
   Otput:
-    item: {fileID: 11400000, guid: a857d6edbb1a83e4c8cc844e14bcb23e, type: 2}
+    item: {fileID: 11400000, guid: f7ee14281e6d2bd4eaba054f71b82854, type: 2}
     count: 1

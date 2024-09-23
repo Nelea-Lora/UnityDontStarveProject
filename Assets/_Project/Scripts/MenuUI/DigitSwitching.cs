@@ -41,7 +41,7 @@ public class DigitSwitching : MonoBehaviour
                 }
                 else
                 {
-                    if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
+                    //if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
                     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = notSelectedImage;
                     currentSlotID = i;
                     slotParent.GetChild(currentSlotID).GetComponent<Image>().sprite = selectedImage;
@@ -57,9 +57,9 @@ public class DigitSwitching : MonoBehaviour
         if (!_playerController) return;
         InventorySlot currentItem = slotParent.GetChild(currentSlotID)
             .GetComponent<InventorySlot>();
+        if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
             || currentItem.amount <= 0) return;
-        if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
         _playerController.itemInHands = currentItem.item;
         if (_playerController.itemInHands && tmpCurrentSlotID != currentSlotID)
             _playerController.TakeObjectInRightHand();

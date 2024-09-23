@@ -20,4 +20,6 @@ MonoBehaviour:
   maxHealthLevel: 2
   items:
   - {fileID: 3360583102139036511, guid: d8d94f7ba12e9dd4fa879fc9ecd8f53a, type: 3}
+  - {fileID: 6298676205592212337, guid: c996a25354c07614ea91bbef11404ad6, type: 3}
+  - {fileID: 6298676205592212337, guid: c996a25354c07614ea91bbef11404ad6, type: 3}
   instrumentType: 0

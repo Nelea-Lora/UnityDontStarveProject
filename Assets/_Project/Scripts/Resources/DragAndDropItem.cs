@@ -51,7 +51,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
         else
         {
-            if(!oldSlot.item.build)
+            if(oldSlot.item.itemType!=ItemType.BuildItem)
             {
                 GameObject itemObject = Instantiate(oldSlot.item.itemPrefab, _player.position, Quaternion.identity);
                 itemObject.GetComponent<Item>()._amount = oldSlot.amount;
@@ -62,7 +62,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 var newObjectPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
                 newObjectPosition.z = -1f;
                 PlaceObject(newObjectPosition);
-                CreateCubeMesh();
             }
         }
         if(_digitSwitching)
@@ -78,7 +77,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         int amount = newSlot.amount;
         bool isComplete = newSlot.isComplete;
         Sprite iconGo = newSlot.iconGO.sprite;
-        //CleanSliderAndPercentageDuringSwap(newSlot);
+        if(newSlot.item)CleanSliderAndPercentageDuringSwap(newSlot);
         newSlot.item = oldSlot.item;
         newSlot.amount = oldSlot.amount;
         if (oldSlot.isComplete)
@@ -89,7 +88,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
         else NullItemData(newSlot);
         newSlot.isComplete = oldSlot.isComplete;
-        //CleanSliderAndPercentageDuringSwap(oldSlot);
+        if(oldSlot.item)CleanSliderAndPercentageDuringSwap(oldSlot);
         oldSlot.item = item;
         oldSlot.amount = amount;
         if (isComplete)
@@ -102,38 +101,6 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         oldSlot.isComplete = isComplete;
         
     }
-    // void ExchangeSlotData(InventorySlot newSlot)
-    // {
-    //     ItemScriptableObject item = newSlot.item;
-    //     int amount = newSlot.amount;
-    //     bool isComplete = newSlot.isComplete;
-    //     Sprite iconGo = newSlot.iconGO.sprite;
-    //     if (oldSlot.isComplete&& oldSlot.item) ChangeItemData(newSlot, oldSlot);
-    //     else NullItemData(newSlot);
-    //     newSlot.item = oldSlot.item;
-    //     newSlot.amount = oldSlot.amount;
-    //     newSlot.isComplete = oldSlot.isComplete;
-    //     if (isComplete && item) {ChangeItemData(oldSlot, newSlot);oldSlot.SetIcon(iconGo);}
-    //     else NullItemData(oldSlot);
-    //     oldSlot.item = item;
-    //     oldSlot.amount = amount;
-    //     oldSlot.isComplete = isComplete;
-    // }
-    //
-    // private void ChangeItemData(InventorySlot slot1, InventorySlot slot2)
-    // {
-    //     slot1.SetIcon(slot2.iconGO.sprite);
-    //     slot1.itemAmount.text = slot2.amount.ToString();
-    //     if(slot2.item.itemType==ItemType.Food)slot1.UpdateShelfSliderUI(slot2.item.currTimeShelfLife);
-    //     else if(slot2.item.itemType is ItemType.Instrument or ItemType.Light && !slot2.item.build)
-    //         slot1.UpdateShelfPercentageUI(slot2.item.maxTimeShelfLife, 
-    //             slot2.item.currTimeShelfLife);
-    //     else
-    //     {
-    //         slot1.UpdateShelfSliderUI(0);
-    //         slot1.UpdateShelfPercentageUI(1, 0);
-    //     }
-    // }
     private void NullItemData(InventorySlot newSlot)
     {
         newSlot.iconGO.color = new Color(1, 1, 1, 0);
@@ -146,13 +113,13 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private void CleanSliderAndPercentageDuringSwap(InventorySlot newSlot)
     {
         if(newSlot.item.itemType==ItemType.Food)newSlot.UpdateShelfSliderUI(0);
-        else if(newSlot.item.itemType is ItemType.Instrument or ItemType.Light && !newSlot.item.build)
+        else if(newSlot.item.itemType is ItemType.Instrument or ItemType.Light)
             newSlot.UpdateShelfPercentageUI(1,0);
     }
     private void SetNewSliderAndPercentageDuringSwap(InventorySlot newSlot)
     {
         if(newSlot.item.itemType==ItemType.Food)newSlot.UpdateShelfSliderUI(newSlot.item.currTimeShelfLife);
-        else if(newSlot.item.itemType is ItemType.Instrument or ItemType.Light && !newSlot.item.build)
+        else if(newSlot.item.itemType is ItemType.Instrument or ItemType.Light)
             newSlot.UpdateShelfPercentageUI(newSlot.item.maxTimeShelfLife,
                 newSlot.item.currTimeShelfLife);
     }
@@ -167,43 +134,12 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (CanPlaceObject(position))
         {
             var objectOnScene = Instantiate(oldSlot.item.itemPrefab, position, Quaternion.identity);
-            if(objectOnScene)
-            {
-                print("Костёр успешно установлен!");
-                oldSlot.NullifySlotData();
-            }
+            if(objectOnScene) oldSlot.NullifySlotData();
         }
         else
         {
             transform.SetParent(oldSlot.transform);
             transform.position = oldSlot.transform.position;
-            print("Костёр должен вернуться");
         }
-    }
-    Mesh CreateCubeMesh()
-    {
-        Mesh mesh = new Mesh();
-        Vector3[] vertices = {
-            new Vector3(-0.5f, -0.5f, -0.5f),
-            new Vector3( 0.5f, -0.5f, -0.5f),
-            new Vector3( 0.5f,  0.5f, -0.5f),
-            new Vector3(-0.5f,  0.5f, -0.5f),
-            new Vector3(-0.5f, -0.5f,  0.5f),
-            new Vector3( 0.5f, -0.5f,  0.5f),
-            new Vector3( 0.5f,  0.5f,  0.5f),
-            new Vector3(-0.5f,  0.5f,  0.5f)
-        };
-        int[] triangles = {
-            0, 2, 1, 0, 3, 2, 
-            4, 5, 6, 4, 6, 7,
-            0, 1, 5, 0, 5, 4,
-            2, 3, 7, 2, 7, 6,
-            0, 4, 7, 0, 7, 3,
-            1, 2, 6, 1, 6, 5
-        };
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
-        return mesh;
     }
 }
