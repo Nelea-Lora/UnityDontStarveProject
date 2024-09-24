@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,32 +6,43 @@ using UnityEngine;
 public class ObjectLifeCycles : MonoBehaviour
 {
     [SerializeField] private InventoryManager _inventoryManager;
-    [SerializeField] private CampfireManager _campfireManager;
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private PlayerCollision _playerCollision;
+    private  CampfireManager _campfireManager;
+    
+    void Start()
+    {
+        _playerCollision.OnItemTriggerEnter += CampfireEnter;
+        _playerCollision.OnItemTriggerExit += CampfireExit;
+    }
     void Update()
     {
-        if (_playerController && _playerController.itemInHands && _playerController.itemInHands.burnLevel>0
-            && _campfireManager&& _campfireManager._item && _inventoryManager
-            && _inventoryManager.itemTmp&& _inventoryManager.itemTmp._Item
-            && _inventoryManager.itemTmp._Item==_campfireManager._item&& Input.GetKeyDown(KeyCode.Space)) 
-            UpdateLifeCycles();
+        if (_playerController && _playerController.itemInHands && _playerController.itemInHands.burnLevel > 0
+            &&_campfireManager &&_campfireManager.DistanceToPlayer < 1 && Input.GetKeyDown(KeyCode.Space))
+        {
+            float burn = _campfireManager.
+                Burn(_campfireManager.maxLevelFire/_playerController.itemInHands.burnLevel);
+            _inventoryManager.UseItem();
+            print("burnLevel "+burn);
+        }
+        // if(_campfireManager&& _campfireManager._Item )
+        // {
+        //     print("//////_campfireManager/////");
+        //     if( _inventoryManager.itemTmp._Item==_campfireManager._Item ) 
+        //         print("*****_inventoryManager.itemTmp._Item==_campfireManager._item******");
+        // }
     }
 
-    private void UpdateLifeCycles()
+    private void CampfireEnter(Item item)
     {
-        print(" UpdateLifeCycles ");
-        if (_campfireManager._item.itemType == ItemType.BuildItem)
+        if (item.TryGetComponent(out CampfireManager campfireManager))
         {
-            BuildItem buildItem = _campfireManager._item as BuildItem;
-            if(!buildItem)return;
-            print(" buildItem ");
-            if (buildItem.buildItemType == ItemOnSceneType.Campfire)
-            {
-                _campfireManager.ChangeFireLevel(_playerController.itemInHands.burnLevel);
-                print(" Campfire ");
-                print("*********levelFire********* "+ _campfireManager.levelFire);
-            }
+            _campfireManager = campfireManager;
         }
-        
+    }
+
+    private void CampfireExit(Item item)
+    {
+        _campfireManager = null;
     }
 }

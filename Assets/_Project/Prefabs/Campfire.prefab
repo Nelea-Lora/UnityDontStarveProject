@@ -318,6 +318,6 @@ MonoBehaviour:
   _fire: {fileID: 21300000, guid: eb5db0903bf6c4b4898f0045f9ff899a, type: 3}
   _middleFire: {fileID: 21300000, guid: 4edfdf20a3135d849bc21595087f8041, type: 3}
   _offFire: {fileID: 21300000, guid: 3240666ce24e31441872bff94d4d34fd, type: 3}
-  maxLevelFire: 10
+  maxLevelFire: 30
   levelFire: 10
   player: {fileID: 0}

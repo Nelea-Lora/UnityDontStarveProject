@@ -62,8 +62,9 @@ public class InventoryManager : MonoBehaviour
                     slot.amount += _amount;
                     slot.itemAmount.text = slot.amount.ToString();
                     ChangeTimeShelfLife(slot);
-                    //slot.itemID = _itemID;
-                    //_itemID++;
+                    if(slot==_digitSwitching.slotParent.GetChild(_digitSwitching.currentSlotID)
+                           .GetComponent<InventorySlot>())
+                        _digitSwitching.TakeItemInHands();
                     _itemAdded = true;
                     return;
                 }
@@ -74,19 +75,22 @@ public class InventoryManager : MonoBehaviour
         {
             if (!slot.isComplete)
             {
-                if(_item.maximumAmount==1)slot.item = Instantiate(_item);//Нужно делать где-то Destroy?
+                if(_item.maximumAmount==1)slot.item = Instantiate(_item);
                 else slot.item = _item;
                 slot.amount = _amount;
                 slot.SlotComplete();
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
                 ChangeTimeShelfLife(slot);
+                if(slot==_digitSwitching.slotParent.GetChild(_digitSwitching.currentSlotID)
+                       .GetComponent<InventorySlot>())
+                    _digitSwitching.TakeItemInHands();
                 _itemAdded = true;
                 break;
             }
         }
     }
-    private void UseItem()
+    public void UseItem()
     {
         if (!_digitSwitching) return;
         InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
@@ -98,15 +102,20 @@ public class InventoryManager : MonoBehaviour
             FoodItem foodItem = currentItem.item as FoodItem; if(!foodItem)return;
             _healthSystem.Heal(foodItem.healingAmount); _healthSystem.Eat(foodItem.eatingAmount);
             _healthSystem.IncreaseMind(foodItem.mindAmount);
-            if (currentItem.amount <= 1)
-            {
-                currentItem.NullifySlotData();
-                _playerController.ItIsAnotherObjectInHand();
-            }
-            else currentItem.DecreaseSlotData(1);
+            UseItemAndDecrease(currentItem);
         }
+        else if (currentItem.item.burnLevel > 0) UseItemAndDecrease(currentItem);
     }
 
+    private void UseItemAndDecrease(InventorySlot currentItem)
+    {
+        if (currentItem.amount <= 1)
+        {
+            currentItem.NullifySlotData();
+            _playerController.ItIsAnotherObjectInHand();
+        }
+        else currentItem.DecreaseSlotData(1);
+    }
     private void ChangeTimeShelfLife(InventorySlot slot)
     {
         if (slot.item.maxTimeShelfLife > 0)

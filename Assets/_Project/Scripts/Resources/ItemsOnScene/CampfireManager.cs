@@ -15,23 +15,18 @@ public class CampfireManager : Item
     private Light _light;
     private SpriteRenderer _spriteRenderer;
     private float _tmpTimeForFire;
-    private float _fireLife;
     [SerializeField] private Transform player;
     internal float DistanceToPlayer;
-    public ItemScriptableObject _item;//private
+
+    private float _remainingBurningTime;
     void Start()
     {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-        //_item = Instantiate(_Item);
-        _item = _Item;
-        _item.currTimeShelfLife = _item.maxTimeShelfLife;
-        // levelFire = maxLevelFire;
-        // _tmpTimeForFire = 0.1f;
-        // _fireLife = levelFire / 2;
-         _fireLife = _item.currTimeShelfLife / 2;
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        _remainingBurningTime = maxLevelFire;
+        
+        levelFire = maxLevelFire;
+        _tmpTimeForFire = 0.1f;
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _light = GetComponentInChildren<Light>();
         _light.range = 20;
@@ -40,51 +35,38 @@ public class CampfireManager : Item
     void Update()
     {
         DistanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (_tmpTimeForFire < Time.time && _item && _item.currTimeShelfLife>0) ChangeFire();
-        //if (_tmpTimeForFire < Time.time && levelFire>0) ChangeFire();
+        if (_tmpTimeForFire < Time.time) ChangeFire();
+        if (_remainingBurningTime>0)Burn(-Time.deltaTime);
+    }
+
+    public float Burn(float amount)
+    {
+        _remainingBurningTime = Mathf.Clamp(_remainingBurningTime + amount, 0, maxLevelFire);
+        if(!_light) return _remainingBurningTime;
+        _light.intensity = Mathf.Lerp(0, 5, _remainingBurningTime / maxLevelFire);
+        _light.range = Mathf.Lerp(0, 5, _remainingBurningTime / maxLevelFire);
+        return _remainingBurningTime;
     }
 
     private void ChangeFire()
     {
-        if(_item.maxTimeShelfLife<=0 &&!_item.icon)return;
-        if (_item.currTimeShelfLife > _fireLife)
+        if(!_spriteRenderer) return;
+        if (_remainingBurningTime > maxLevelFire / 2f)
         {
-            _item.currTimeShelfLife -= 0.1f;
+           // levelFire -= 0.1f;
             _spriteRenderer.sprite = _fire;
         }
-        if (_item.currTimeShelfLife <= _fireLife)
+        if (_remainingBurningTime <= maxLevelFire / 2f)
         {
             _spriteRenderer.sprite = _middleFire;
-            _item.currTimeShelfLife -= 0.1f;
-            _light.range = 5;
+        //    levelFire -= 0.1f;
+        //    _light.range = 5;
         }
-        if (_item.currTimeShelfLife <= 0)
+        if (_remainingBurningTime <= 0)
         {
             _spriteRenderer.sprite = _offFire;
-            _light.range = 0;
+        //    _light.range = 0;
         }
-        // if (levelFire > _fireLife)
-        // {
-        //     levelFire -= 0.1f;
-        //     _spriteRenderer.sprite = _fire;
-        // }
-        // if (levelFire <= _fireLife)
-        // {
-        //     _spriteRenderer.sprite = _middleFire;
-        //     levelFire -= 0.1f;
-        //     _light.range = 5;
-        // }
-        // if (levelFire <= 0)
-        // {
-        //     _spriteRenderer.sprite = _offFire;
-        //     _light.range = 0;
-        // }
         _tmpTimeForFire += 0.5f;
-    }
-
-    public void ChangeFireLevel(float amount)
-    {
-        _item.currTimeShelfLife += amount;
-        //levelFire += amount;
     }
 }

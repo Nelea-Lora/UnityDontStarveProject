@@ -59,7 +59,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             }
             else
             {
-                var newObjectPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+                var newObjectPosition = Input.mousePosition;
                 newObjectPosition.z = -1f;
                 PlaceObject(newObjectPosition);
             }
