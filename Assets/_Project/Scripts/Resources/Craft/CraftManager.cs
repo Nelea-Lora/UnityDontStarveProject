@@ -29,7 +29,7 @@ public class CraftManager : MonoBehaviour
 
     private void CraftInstrument()
     {
-        if (!_item && _item.Input is null) return;
+        if (!_item || _item.Input is null) return;
         if (_inventoryManager.slots is null) return;
         int allMaterials = _item.Input.Length;
         foreach (ItemTypeAndCount material in _item.Input)

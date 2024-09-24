@@ -672,6 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 85841580}
   - component: {fileID: 85841579}
+  - component: {fileID: 85841581}
   m_Layer: 0
   m_Name: ObjectMahager
   m_TagString: Untagged
@@ -694,6 +695,7 @@ MonoBehaviour:
   _inventoryManager: {fileID: 1134215881}
   _playerController: {fileID: 1134215872}
   _playerCollision: {fileID: 1134215878}
+  _recipeManager: {fileID: 85841581}
 --- !u!4 &85841580
 Transform:
   m_ObjectHideFlags: 0
@@ -709,6 +711,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &85841581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85841578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4099f4c4171f3149a6a90b2e3277dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allRecipes:
+  - {fileID: 11400000, guid: 0dda9b3dea5f0314a849725adafd4e4a, type: 2}
+  _inventoryManager: {fileID: 1134215881}
 --- !u!224 &118787114 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5321467487943806341, guid: 593d0da4d25c1564799a8335b6a10e3d, type: 3}

@@ -8,6 +8,7 @@ public class ObjectLifeCycles : MonoBehaviour
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerCollision _playerCollision;
+    [SerializeField] private RecipeManager _recipeManager;
     private  CampfireManager _campfireManager;
     
     void Start()
@@ -17,20 +18,22 @@ public class ObjectLifeCycles : MonoBehaviour
     }
     void Update()
     {
-        if (_playerController && _playerController.itemInHands && _playerController.itemInHands.burnLevel > 0
+        if (_playerController && _playerController.itemInHands && _inventoryManager &&
+            (_playerController.itemInHands.burnLevel > 0 || _playerController.itemInHands.itemType == ItemType.Food)
             &&_campfireManager &&_campfireManager.DistanceToPlayer < 1 && Input.GetKeyDown(KeyCode.Space))
         {
-            float burn = _campfireManager.
-                Burn(_campfireManager.maxLevelFire/_playerController.itemInHands.burnLevel);
-            _inventoryManager.UseItem();
-            print("burnLevel "+burn);
+            if(_playerController.itemInHands.burnLevel > 0)
+            {
+                float burn = _campfireManager.
+                    Burn(_campfireManager.maxLevelFire / _playerController.itemInHands.burnLevel);
+                print("burnLevel "+burn);
+            }
+            if(_playerController.itemInHands.itemType == ItemType.Food && _recipeManager)
+            {
+                _recipeManager.Cook(_playerController.itemInHands);
+            }
+            _inventoryManager.UseItemAndDecrease();
         }
-        // if(_campfireManager&& _campfireManager._Item )
-        // {
-        //     print("//////_campfireManager/////");
-        //     if( _inventoryManager.itemTmp._Item==_campfireManager._Item ) 
-        //         print("*****_inventoryManager.itemTmp._Item==_campfireManager._item******");
-        // }
     }
 
     private void CampfireEnter(Item item)
