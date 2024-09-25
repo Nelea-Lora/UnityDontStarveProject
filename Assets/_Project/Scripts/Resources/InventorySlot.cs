@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour
     public TMP_Text itemAmount;
     [SerializeField] private Slider _shelfLifeSlider;
     [SerializeField] private TMP_Text _shelfLifePercentage;
-    //public int itemID;
+    public int slotID;
     internal bool isComplete { get; set; }
 
     public void SlotComplete()

@@ -25,6 +25,10 @@ public class InventoryManager : MonoBehaviour
                 slots.Add(_inventoryPanel.GetChild(i).GetComponent<InventorySlot>());
             }
         }
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].slotID = i;
+        }
     }
 
     void Update()
@@ -94,7 +98,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (!_digitSwitching) return;
         InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
-            .GetComponent<InventorySlot>();
+            .GetComponent<InventorySlot>(); 
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
             || currentItem.amount <= 0) return;
         if (currentItem.item.itemType == ItemType.Food && !itemTmp)
@@ -118,8 +122,10 @@ public class InventoryManager : MonoBehaviour
             .GetComponent<InventorySlot>();
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
             || currentItem.amount <= 0) return;
+        print("currentItem.item "+currentItem.item);
         if (currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0)
         {
+            print("currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0");
             if (currentItem.amount <= 1)
             {
                 currentItem.NullifySlotData();

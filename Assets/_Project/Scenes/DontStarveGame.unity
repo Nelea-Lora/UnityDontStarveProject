@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 85841581}
   m_Layer: 0
   m_Name: ObjectMahager
-  m_TagString: Untagged
+  m_TagString: ObjectManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3847,6 +3847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1250920583}
   - component: {fileID: 1250920582}
+  - component: {fileID: 1250920584}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3883,6 +3884,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250920584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250920581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f939571c3eede4048b1ddffb1586f57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1255369094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4970,6 +4983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 1134215872}
+  _gameMenu: {fileID: 1250920584}
   currentSlotID: 0
   tmpCurrentSlotID: 0
   selectedImage: {fileID: 21300000, guid: dafc616fbb911c942bd0ae6bfcd5b9cd, type: 3}
@@ -5357,6 +5371,10 @@ PrefabInstance:
     - target: {fileID: 8652116720296922735, guid: 2616dd2d55ef89046a6aea96b7d0ace9, type: 3}
       propertyPath: m_Name
       value: Campfire
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652116720296922735, guid: 2616dd2d55ef89046a6aea96b7d0ace9, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

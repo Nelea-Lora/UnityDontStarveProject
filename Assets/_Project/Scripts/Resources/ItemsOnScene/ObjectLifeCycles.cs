@@ -18,24 +18,28 @@ public class ObjectLifeCycles : MonoBehaviour
     }
     void Update()
     {
-        if (_playerController && _playerController.itemInHands && _inventoryManager &&
-            (_playerController.itemInHands.burnLevel > 0 || _playerController.itemInHands.itemType == ItemType.Food)
-            &&_campfireManager &&_campfireManager.DistanceToPlayer < 1 && Input.GetKeyDown(KeyCode.Space))
+        if (_playerController && _playerController.itemInHands && Input.GetKeyDown(KeyCode.Space)) 
+            BurnItem(_campfireManager, _playerController.itemInHands);
+    }
+
+    public void BurnItem(CampfireManager campfireManager, ItemScriptableObject itemInHands)
+    {
+        if (itemInHands&& _inventoryManager &&campfireManager &&campfireManager.DistanceToPlayer < 1 &&
+            (itemInHands.burnLevel > 0 || itemInHands.itemType == ItemType.Food))
         {
-            if(_playerController.itemInHands.burnLevel > 0)
+            if(itemInHands.burnLevel > 0)
             {
-                float burn = _campfireManager.
-                    Burn(_campfireManager.maxLevelFire / _playerController.itemInHands.burnLevel);
+                float burn = campfireManager.
+                    Burn(campfireManager.maxLevelFire / itemInHands.burnLevel);
                 print("burnLevel "+burn);
             }
-            if(_playerController.itemInHands.itemType == ItemType.Food && _recipeManager)
+            if(itemInHands.itemType == ItemType.Food && _recipeManager)
             {
-                _recipeManager.Cook(_playerController.itemInHands);
+                _recipeManager.Cook(itemInHands);
             }
             _inventoryManager.UseItemAndDecrease();
         }
     }
-
     private void CampfireEnter(Item item)
     {
         if (item.TryGetComponent(out CampfireManager campfireManager))

@@ -8,25 +8,27 @@ using Unity.VisualScripting;
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public InventorySlot oldSlot;
-    private Camera _camera;
     [SerializeField] private Transform _player;
     [SerializeField] private PlayerController _playerController;
-    private Vector3 _boxSize = new Vector3(2, 2, 2);
     [SerializeField] private LayerMask _placementMask;
-    private MeshRenderer meshRenderer;
+    private ObjectLifeCycles _objectLifeCycles;
+    private Vector3 _boxSize = new Vector3(2, 2, 2);
+   //private MeshRenderer meshRenderer;
     private DigitSwitching _digitSwitching;
+    public bool IsDragging { get; private set; }
+    
     private void Start()
     {
         oldSlot = transform.GetComponentInParent<InventorySlot>();
-        _camera = Camera.main;
         _digitSwitching = oldSlot.GetComponentInParent<DigitSwitching>();
-        meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.material = new Material(Shader.Find("Standard"));
-        meshRenderer.material.color = Color.red;
+        // meshRenderer = gameObject.AddComponent<MeshRenderer>();
+        // meshRenderer.material = new Material(Shader.Find("Standard"));
+        // meshRenderer.material.color = Color.red;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!oldSlot&&!oldSlot.isComplete) return;
+        IsDragging = true;
         GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0.75f);
         GetComponentInChildren<Image>().raycastTarget = false;
         transform.SetParent(transform.parent.parent);
@@ -43,25 +45,34 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         GetComponentInChildren<Image>().raycastTarget = true;
         transform.SetParent(oldSlot.transform);
         transform.position = oldSlot.transform.position;
-        if (eventData.pointerCurrentRaycast.gameObject != null)
+        GameObject hitObject = eventData.pointerCurrentRaycast.gameObject;
+        if (hitObject != null)
         {
-            InventorySlot newSlot = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.
-                GetComponent<InventorySlot>();
-            if (newSlot != null) ExchangeSlotData(newSlot); 
+            int uiLayer = LayerMask.NameToLayer("UI");
+            if (hitObject.layer == uiLayer)
+            {
+                InventorySlot newSlot = eventData.pointerCurrentRaycast.gameObject.transform.parent.parent.
+                    GetComponent<InventorySlot>();
+                if (newSlot != null) ExchangeSlotData(newSlot); 
+            }
         }
         else
         {
-            if(oldSlot.item.itemType!=ItemType.BuildItem)
-            {
-                GameObject itemObject = Instantiate(oldSlot.item.itemPrefab, _player.position, Quaternion.identity);
-                itemObject.GetComponent<Item>()._amount = oldSlot.amount;
-                oldSlot.NullifySlotData();
-            }
-            else
+            if(oldSlot.item.itemType==ItemType.BuildItem)
             {
                 var newObjectPosition = Input.mousePosition;
                 newObjectPosition.z = -1f;
                 PlaceObject(newObjectPosition);
+            }
+            else
+            {
+                bool check = CheckMouseRaycast();
+                if(!check)
+                {
+                    GameObject itemObject = Instantiate(oldSlot.item.itemPrefab, _player.position, Quaternion.identity);
+                    itemObject.GetComponent<Item>()._amount = oldSlot.amount;
+                    oldSlot.NullifySlotData();
+                }
             }
         }
         if(_digitSwitching)
@@ -70,6 +81,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 .GetComponent<InventorySlot>();
             if (currentSlot.item == oldSlot.item) _digitSwitching.TakeItemInHands();
         }
+        IsDragging = false;
     }
     void ExchangeSlotData(InventorySlot newSlot)
     {
@@ -110,6 +122,37 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         newSlot.UpdateShelfPercentageUI(1, 0);
     }
 
+    private bool CheckMouseRaycast()
+    {
+        if(!Camera.main)return false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        //int layerMask = LayerMask.GetMask("Campfire");
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            if (!hitObject) return false;
+            if (hitObject.CompareTag("Campfire"))
+            {
+                CampfireManager campfire = hitObject.GetComponent<CampfireManager>();
+                if (campfire != null)
+                {
+                    GameObject objManager = GameObject.FindWithTag("ObjectManager");
+                    if(objManager)_objectLifeCycles = objManager.GetComponent<ObjectLifeCycles>();
+                    if(_objectLifeCycles)
+                    {
+                        _objectLifeCycles.BurnItem(campfire, oldSlot.item);
+                        return true;
+                    }
+                }
+            }
+            // else if (hitObject.CompareTag("Ground"))
+            // {
+            //    
+            // }
+        }
+        return false;
+    }
     private void CleanSliderAndPercentageDuringSwap(InventorySlot newSlot)
     {
         if(newSlot.item.itemType==ItemType.Food)newSlot.UpdateShelfSliderUI(0);

@@ -721,9 +721,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: f939571c3eede4048b1ddffb1586f57a, type: 3}
         m_TargetAssemblyTypeName: Items, Assembly-CSharp
-        m_MethodName: Equip
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -751,6 +751,7 @@ MonoBehaviour:
   itemAmount: {fileID: 1939291633929472025}
   _shelfLifeSlider: {fileID: 675793798755230559}
   _shelfLifePercentage: {fileID: 7436243957473948759}
+  slotID: 0
 --- !u!1 &8961234472218211617
 GameObject:
   m_ObjectHideFlags: 0
