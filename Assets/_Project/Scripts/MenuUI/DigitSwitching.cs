@@ -25,7 +25,7 @@ public class DigitSwitching : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)&&_gameMenu.Select&&EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0)&&EventSystem.current.IsPointerOverGameObject())
         {
             print("_gameMenu.Select");
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
