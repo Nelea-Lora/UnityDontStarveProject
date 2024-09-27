@@ -10,12 +10,12 @@ public class FloorBoundaries : MonoBehaviour
     
     void Awake()
     {
-        Renderer floorRenderer = floorObject.GetComponent<Renderer>();
-        if (floorRenderer != null)
-        {
-            Vector3 floorSize = floorRenderer.bounds.size;
-            horizontalLimitValue = floorSize.x / 2f;
-            verticalLimitValue = floorSize.y / 2f;
-        }
+        // Renderer floorRenderer = floorObject.GetComponent<Renderer>();
+        // if (floorRenderer != null)
+        // {
+        //     Vector3 floorSize = floorRenderer.bounds.size;
+        //     horizontalLimitValue = floorSize.x / 2f;
+        //     verticalLimitValue = floorSize.y / 2f;
+        // }
     }
 }

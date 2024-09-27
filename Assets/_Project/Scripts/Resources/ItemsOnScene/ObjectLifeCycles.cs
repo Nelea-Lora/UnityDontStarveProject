@@ -14,7 +14,6 @@ public class ObjectLifeCycles : MonoBehaviour
     void Start()
     {
         _playerCollision.OnItemTriggerEnter += CampfireEnter;
-        _playerCollision.OnItemTriggerExit += CampfireExit;
     }
     void Update()
     {
@@ -46,10 +45,5 @@ public class ObjectLifeCycles : MonoBehaviour
         {
             _campfireManager = campfireManager;
         }
-    }
-
-    private void CampfireExit(Item item)
-    {
-        _campfireManager = null;
     }
 }

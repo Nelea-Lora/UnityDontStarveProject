@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     private Vector3 _movingVector;
-    private float _horizontalLimitValue;
-    private float _verticalLimitValue;
+    // private float _horizontalLimitValue;
+    // private float _verticalLimitValue;
     private bool _isChecked;
     public ItemScriptableObject itemInHands;
     public ItemScriptableObject _TMPitemInHands;
@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (_spriteRenderer != null) _spriteRenderer.sprite = bosorkaDay;
-        _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
-        _verticalLimitValue = FloorBoundaries.verticalLimitValue;
+        // _horizontalLimitValue = FloorBoundaries.horizontalLimitValue;
+        // _verticalLimitValue = FloorBoundaries.verticalLimitValue;
     }
     
     void Update()
@@ -52,8 +52,8 @@ public class PlayerController : MonoBehaviour
     private void MovingWasd()
     {
         Vector3 newPosition = transform.position + _movingVector * Time.deltaTime;
-        newPosition.x = Mathf.Clamp(newPosition.x, -_horizontalLimitValue, _horizontalLimitValue);
-        newPosition.y = Mathf.Clamp(newPosition.y, -_verticalLimitValue, _verticalLimitValue);
+        //newPosition.x = Mathf.Clamp(newPosition.x, -_horizontalLimitValue, _horizontalLimitValue);
+        //newPosition.y = Mathf.Clamp(newPosition.y, -_verticalLimitValue, _verticalLimitValue);
         transform.position = newPosition;
     }
 
