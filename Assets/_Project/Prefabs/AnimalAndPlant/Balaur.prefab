@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.13, y: 4.79, z: -1.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9029931336642542411}
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalPlant: {fileID: 11400000, guid: 73f40f525115f0b45a405110996db97f, type: 2}
+  probabilityOfOccurence: 1
 --- !u!1 &6425668242436655152
 GameObject:
   m_ObjectHideFlags: 0

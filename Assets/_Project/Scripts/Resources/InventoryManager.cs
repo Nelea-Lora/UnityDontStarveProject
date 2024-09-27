@@ -104,6 +104,7 @@ public class InventoryManager : MonoBehaviour
         if (currentItem.item.itemType == ItemType.Food && !itemTmp)
         {
             FoodItem foodItem = currentItem.item as FoodItem; if(!foodItem)return;
+            print("you eat " + foodItem);
             _healthSystem.Heal(foodItem.healingAmount); _healthSystem.Eat(foodItem.eatingAmount);
             _healthSystem.IncreaseMind(foodItem.mindAmount);
             if (currentItem.amount <= 1)

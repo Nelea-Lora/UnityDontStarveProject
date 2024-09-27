@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8432641150215969755}
   - component: {fileID: 3606321175968172621}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: DarkFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec638bc45d2744e409da1b3b52809b0e, type: 2}
+  - {fileID: 2100000, guid: 57dfe0da854ed774bb4fa409b501aa49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 0
-  weight: 30
+  weight: 50

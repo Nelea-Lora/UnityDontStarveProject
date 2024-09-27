@@ -60,9 +60,12 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             if(oldSlot.item.itemType==ItemType.BuildItem)
             {
-                var newObjectPosition = Input.mousePosition;
-                newObjectPosition.z = -1f;
-                PlaceObject(newObjectPosition);
+                if (Camera.main != null)
+                {
+                    var newObjectPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    newObjectPosition.z = -1f;
+                    PlaceObject(newObjectPosition);
+                }
             }
             else
             {

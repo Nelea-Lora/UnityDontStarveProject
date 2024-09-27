@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalPlant: {fileID: 11400000, guid: f882daffcdb30c4429c840f55b6a6d03, type: 2}
+  probabilityOfOccurence: 20
 --- !u!1 &9099269167696331321
 GameObject:
   m_ObjectHideFlags: 0
