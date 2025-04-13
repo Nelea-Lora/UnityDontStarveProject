@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType {Food, Instrument, Material, Light, BuildItem, Plant}
+public enum ItemType {Food, Instrument, Material, Light, BuildItem}
 public class ItemScriptableObject : ScriptableObject
 {
     public GameObject itemPrefab;

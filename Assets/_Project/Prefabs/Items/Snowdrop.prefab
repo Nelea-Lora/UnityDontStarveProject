@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5617152833347063374
+--- !u!1 &6334725339380098323
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6926681937426942748}
-  - component: {fileID: 900645594167380698}
-  - component: {fileID: 53672009235754760}
-  - component: {fileID: 400232562201570260}
-  - component: {fileID: 7253480822316114258}
+  - component: {fileID: 1791422415267163359}
+  - component: {fileID: 2082874761701205821}
+  - component: {fileID: 1278396314738953552}
+  - component: {fileID: 7797574531491247181}
+  - component: {fileID: 1277683598203352433}
   m_Layer: 0
-  m_Name: Balaur
+  m_Name: Snowdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6926681937426942748
+--- !u!4 &1791422415267163359
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617152833347063374}
+  m_GameObject: {fileID: 6334725339380098323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.13, y: 4.79, z: -1.5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9029931336642542411}
+  - {fileID: 730938686223357065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &900645594167380698
+--- !u!33 &2082874761701205821
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617152833347063374}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &53672009235754760
+  m_GameObject: {fileID: 6334725339380098323}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1278396314738953552
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617152833347063374}
+  m_GameObject: {fileID: 6334725339380098323}
   m_Enabled: 0
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 218a6bc034037e340a82c4ab9388bdec, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &400232562201570260
-BoxCollider:
+--- !u!135 &7797574531491247181
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617152833347063374}
+  m_GameObject: {fileID: 6334725339380098323}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,23 +105,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7253480822316114258
+--- !u!114 &1277683598203352433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5617152833347063374}
+  m_GameObject: {fileID: 6334725339380098323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e75b13ec85ac26341a36bf005559b091, type: 3}
+  m_Script: {fileID: 11500000, guid: d7331d6ae137c8841b3895fb8e209bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalPlant: {fileID: 11400000, guid: 73f40f525115f0b45a405110996db97f, type: 2}
-  probabilityOfOccurence: 10
---- !u!1 &6425668242436655152
+  _Item: {fileID: 11400000, guid: 779053391081c6d4d846ec1a5a6e5cbe, type: 2}
+  _amount: 1
+--- !u!1 &7267711536015072612
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,37 +129,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9029931336642542411}
-  - component: {fileID: 9211877102972706089}
+  - component: {fileID: 730938686223357065}
+  - component: {fileID: 5511862509744038313}
+  - component: {fileID: 1815234707248601102}
   m_Layer: 0
-  m_Name: Balaur3head
+  m_Name: Snowdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9029931336642542411
+--- !u!4 &730938686223357065
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425668242436655152}
+  m_GameObject: {fileID: 7267711536015072612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1531277, y: 0.1531277, z: 0.1531277}
+  m_LocalPosition: {x: 0, y: 0, z: -0.037}
+  m_LocalScale: {x: 0.07375969, y: 0.07375969, z: 0.07375969}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6926681937426942748}
+  m_Father: {fileID: 1791422415267163359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9211877102972706089
+--- !u!212 &5511862509744038313
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6425668242436655152}
+  m_GameObject: {fileID: 7267711536015072612}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -194,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fd27930c80e5de40b6efd32bc289c4c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77657d0d8830fd54fa29a76f1df3ffa7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,3 +206,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1815234707248601102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7267711536015072612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7331d6ae137c8841b3895fb8e209bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Item: {fileID: 0}
+  _amount: 0
