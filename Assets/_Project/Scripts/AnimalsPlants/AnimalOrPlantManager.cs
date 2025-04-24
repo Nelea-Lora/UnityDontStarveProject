@@ -6,7 +6,7 @@ using UnityEngine;
 public class AnimalOrPlantManager : MonoBehaviour
 {
     [SerializeField] private PlayerCollision _playerCollision;
-    [SerializeField] private HealthSystem _healthSystem;
+    // [SerializeField] private HealthSystem _healthSystem;
     [SerializeField] private PlayerController _playerController;
     private AnimalOrPlant _animalOrPlantTmp;
     private bool _attackAdded;
@@ -23,7 +23,8 @@ public class AnimalOrPlantManager : MonoBehaviour
         {
             if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Attaker && !_attackAdded)
             {
-                GiveDamage(); _attackAdded = true;
+                GiveDamage(); 
+                _attackAdded = true;
             }
             AttackByInstrument = false;
             if (_playerController&& _playerController.itemInHands&& 
@@ -49,7 +50,8 @@ public class AnimalOrPlantManager : MonoBehaviour
         Attacker attackerComponent = _animalOrPlantTmp.animalPlant as Attacker;
         if (attackerComponent)
         {
-            _healthSystem.TakeDamage(attackerComponent.damageAmount);
+            GameFacade.Instance.TakeDamage(attackerComponent.damageAmount);
+            //_healthSystem.TakeDamage(attackerComponent.damageAmount);
         }
     }
 

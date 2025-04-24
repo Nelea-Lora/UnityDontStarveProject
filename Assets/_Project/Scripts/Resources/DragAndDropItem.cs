@@ -9,7 +9,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 {
     public InventorySlot oldSlot;
     [SerializeField] private Transform _player;
-    [SerializeField] private PlayerController _playerController;
+    // [SerializeField] private PlayerController _playerController;
     [SerializeField] private LayerMask _placementMask;
     private ObjectLifeCycles _objectLifeCycles;
     private Vector3 _boxSize = new Vector3(2, 2, 2);
@@ -144,7 +144,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                     if(objManager)_objectLifeCycles = objManager.GetComponent<ObjectLifeCycles>();
                     if(_objectLifeCycles)
                     {
-                        _objectLifeCycles.BurnItem(campfire, oldSlot.item);
+                        //_objectLifeCycles.BurnItem(campfire, oldSlot.item);
+                        GameFacade.Instance.BurnItemAtCampfire(campfire, oldSlot.item);
                         return true;
                     }
                 }

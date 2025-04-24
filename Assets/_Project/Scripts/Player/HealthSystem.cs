@@ -16,6 +16,7 @@ public class HealthSystem : MonoBehaviour
     private float _currentMind;
     [SerializeField] private float _timeHunger;
     [SerializeField] private DayTime day;
+    
     void Start()
     {
         _currentHealth = maxHealth;
@@ -97,4 +98,19 @@ public class HealthSystem : MonoBehaviour
     {
         Debug.Log("Player died");
     }
+    
+    public float GetCurrentHealth() => _currentHealth;
+    public float GetCurrentHunger() => _currentHunger;
+    public float GetCurrentMind() => _currentMind;
+
+    public void SetAll(float health, float hunger, float mind)
+    {
+        _currentHealth = health;
+        _currentHunger = hunger;
+        _currentMind = mind;
+        UpdateHealthUI(_currentHealth, _health);
+        UpdateHealthUI(_currentHunger, _hunger);
+        UpdateHealthUI(_currentMind, _mind);
+    }
+
 }

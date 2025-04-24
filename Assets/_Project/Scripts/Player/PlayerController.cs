@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Memento;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public ItemScriptableObject _TMPitemInHands;
     private GameObject _tmpItemInHands;
     public GameObject rightHand;
-    [SerializeField] private DayTime day;
+    // [SerializeField] private DayTime day;
     [SerializeField] private Sprite bosorkaDay;
     [SerializeField] private Sprite bosorkaNight;
     private SpriteRenderer _spriteRenderer;
@@ -41,9 +42,12 @@ public class PlayerController : MonoBehaviour
             _movingVector = new Vector3(0, axis * speed, 0);
             MovingWasd();
         }    
-        if (day && day.DayProgress() > 0.5f && day.DayProgress() < 0.6f) 
-            _spriteRenderer.sprite = bosorkaNight;
-        if (day && day.DayProgress() == 0f) _spriteRenderer.sprite = bosorkaDay;
+        // if (day && day.DayProgress() > 0.5f && day.DayProgress() < 0.6f) 
+        //     _spriteRenderer.sprite = bosorkaNight;
+        if (GameFacade.Instance.IsNight())
+            GameFacade.Instance.ChangePlayerSprite(bosorkaNight);
+        else _spriteRenderer.sprite = bosorkaDay;
+        // if (day && day.DayProgress() == 0f) _spriteRenderer.sprite = bosorkaDay;
         if (_TMPitemInHands && itemInHands && itemInHands.itemPrefab && itemInHands.itemPrefab.gameObject
             && _TMPitemInHands != itemInHands)
             ItIsAnotherObjectInHand();
@@ -76,4 +80,29 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public GameMemento SaveState()
+    {
+        GameState state = new GameState
+        {
+            PlayerPosition = transform.position,
+            Health = GameFacade.Instance.GetCurrentHealth(),
+            Hunger = GameFacade.Instance.GetCurrentHunger(),
+            Mind = GameFacade.Instance.GetCurrentMind(),
+            ItemInHands = itemInHands
+        };
+        return new GameMemento(state);
+    }
+
+    public void RestoreState(GameMemento memento)
+    {
+        if (memento == null) return;
+
+        GameState state = memento.State;
+        transform.position = state.PlayerPosition;
+        GameFacade.Instance.SetAll(state.Health, state.Hunger, state.Mind);
+
+        itemInHands = state.ItemInHands;
+        if (itemInHands)
+            TakeObjectInRightHand();
+    }
 }

@@ -54,17 +54,33 @@ public class DigitSwitching : MonoBehaviour
         }
     }
 
+    // public void TakeItemInHands()
+    // {
+    //     if (!_playerController) return;
+    //     InventorySlot currentItem = slotParent.GetChild(currentSlotID)
+    //         .GetComponent<InventorySlot>();
+    //     if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
+    //     if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
+    //         || currentItem.amount <= 0) return;
+    //     _playerController.itemInHands = currentItem.item;
+    //     if (_playerController.itemInHands && tmpCurrentSlotID != currentSlotID)
+    //         _playerController.TakeObjectInRightHand();
+    // }
     public void TakeItemInHands()
     {
-        if (!_playerController) return;
-        InventorySlot currentItem = slotParent.GetChild(currentSlotID)
-            .GetComponent<InventorySlot>();
-        if(_playerController.itemInHands)_playerController.ItIsAnotherObjectInHand();
-        if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO
-            || currentItem.amount <= 0) return;
-        _playerController.itemInHands = currentItem.item;
-        if (_playerController.itemInHands && tmpCurrentSlotID != currentSlotID)
-            _playerController.TakeObjectInRightHand();
+        InventorySlot currentSlot = GetCurrentSlot();
+        if (!IsValidSlot(currentSlot)) return;
+
+        GameFacade.Instance.TryTakeItemInHands(currentSlot.item, currentSlotID, tmpCurrentSlotID);
+    }
+    private InventorySlot GetCurrentSlot()
+    {
+        return slotParent.GetChild(currentSlotID)?.GetComponent<InventorySlot>();
+    }
+
+    private bool IsValidSlot(InventorySlot slot)
+    {
+        return slot && slot.item && slot.amount > 0 && slot.iconGO && slot.itemAmount;
     }
 
     private void SelectSlot(int i)
