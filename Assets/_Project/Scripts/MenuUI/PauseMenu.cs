@@ -12,9 +12,18 @@ namespace _Project.Scripts.MenuUI
         public GameObject gameScreen;
         private GameSaveManager _gameSaveManager;
         public TMP_Text saveMessageText;
+        public static PauseMenu Instance { get; private set; }
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
+            Instance = this;
+
             gameScreen.SetActive(true);
             pauseScreen.SetActive(false);
             saveMessageText.gameObject.SetActive(false);
@@ -26,11 +35,11 @@ namespace _Project.Scripts.MenuUI
             gameScreen.SetActive(true);
             pauseScreen.SetActive(false);
         }
-        public void PauseGame()
-        {
-            gameScreen.SetActive(false);
-            pauseScreen.SetActive(true);
-        }
+        // public void PauseGame()
+        // {
+        //     gameScreen.SetActive(false);
+        //     pauseScreen.SetActive(true);
+        // }
         public void RestartGame()
         {
             SceneManager.LoadScene(1);
