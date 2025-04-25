@@ -4,21 +4,22 @@ namespace _Project.Scripts.Memento
 {
     public class GameSaveManager : MonoBehaviour
     {
-        private GameCaretaker caretaker = new GameCaretaker();
+        private GameCaretaker _caretaker = new GameCaretaker();
 
         public void SaveGame()
         {
             var player = GameFacade.Instance.GetPlayer();
-            caretaker.Save(player.SaveState());
+            _caretaker.Save(player.SaveState());
             Debug.Log("Game Saved!");
         }
 
         public void LoadLastSave()
         {
-            var memento = caretaker.LoadLast();
+            var memento = _caretaker.LoadLast();
+            var player = GameFacade.Instance.GetPlayer();
             if (memento != null)
             {
-                GameFacade.Instance.GetPlayer().RestoreState(memento);
+                player.RestoreState(memento);
                 Debug.Log("Game Loaded!");
             }
             else

@@ -10,7 +10,6 @@ public class GameFacade : MonoBehaviour
 
     [Header("Systems")]
     [SerializeField] private InventoryManager inventoryManager;
-    [SerializeField] private CraftManager craftManager;
     [SerializeField] private DayTime dayTime;
     [SerializeField] private ObjectLifeCycles objectLifeCycles;
 
@@ -31,8 +30,7 @@ public class GameFacade : MonoBehaviour
 
     public void AddItem(ItemScriptableObject item, int count) =>
         inventoryManager.AddItem(item, count);
-
-    public bool CanCraftItem() => craftManager != null && craftManager.enabled;
+    
     public void TryTakeItemInHands(ItemScriptableObject item, int slotID, int previousSlotID)
     {
         if (item == null) return;

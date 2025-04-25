@@ -6,26 +6,35 @@ namespace _Project.Scripts.Player
     public class GameActionController : MonoBehaviour
     {
         private CommandManager commandManager = new CommandManager();
+        private PlayerController player;
+
+        void Start()
+        {
+            player = GameFacade.Instance.GetPlayer();
+        }
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            Vector3 delta = Vector3.zero;
+
+            if (Input.GetKey(KeyCode.W)) delta = Vector3.up;
+            if (Input.GetKey(KeyCode.S)) delta = Vector3.down;
+            if (Input.GetKey(KeyCode.A)) delta = Vector3.left;
+            if (Input.GetKey(KeyCode.D)) delta = Vector3.right;
+
+            if (delta != Vector3.zero)
             {
-                var move = new MovePlayerCommand(GameFacade.Instance.GetPlayer(), Vector3.left);
-                commandManager.ExecuteCommand(move);
+                var moveCommand = new MovePlayerCommand(player, delta);
+                commandManager.ExecuteCommand(moveCommand);
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                var move = new MovePlayerCommand(GameFacade.Instance.GetPlayer(), Vector3.right);
-                commandManager.ExecuteCommand(move);
-            }
-
+            // Откат действия
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 commandManager.UndoLastCommand();
             }
         }
     }
+
 
 }

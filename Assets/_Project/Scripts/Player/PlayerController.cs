@@ -56,9 +56,11 @@ public class PlayerController : MonoBehaviour
     private void MovingWasd()
     {
         Vector3 newPosition = transform.position + _movingVector * Time.deltaTime;
-        //newPosition.x = Mathf.Clamp(newPosition.x, -_horizontalLimitValue, _horizontalLimitValue);
-        //newPosition.y = Mathf.Clamp(newPosition.y, -_verticalLimitValue, _verticalLimitValue);
         transform.position = newPosition;
+    }
+    public void MoveTo(Vector3 delta)
+    {
+        transform.position += delta * speed * Time.deltaTime;
     }
 
     public void TakeObjectInRightHand()
@@ -105,4 +107,5 @@ public class PlayerController : MonoBehaviour
         if (itemInHands)
             TakeObjectInRightHand();
     }
+    
 }
