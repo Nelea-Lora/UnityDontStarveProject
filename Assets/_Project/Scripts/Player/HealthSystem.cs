@@ -1,36 +1,36 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Player.Observer;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : MonoBehaviour, IHealthSubject
 {
-    [SerializeField] private Image _health;
-    [SerializeField] private Image _hunger;
-    [SerializeField] private Image _mind;
+    private List<IHealthObserver> _observers = new List<IHealthObserver>();
+
+    // [SerializeField] private Image _health;
+    // [SerializeField] private Image _hunger;
+    // [SerializeField] private Image _mind;
+
     public float maxHealth = 1;
     private float _currentHealth;
     private float _currentHunger;
     private float _currentMind;
+
     [SerializeField] private float _timeHunger;
     [SerializeField] private DayTime day;
-    
+
     void Start()
     {
         _currentHealth = maxHealth;
         _currentHunger = maxHealth;
         _currentMind = maxHealth;
-        UpdateHealthUI(_currentHealth, _health);
-        UpdateHealthUI(_currentHunger, _health);
-        UpdateHealthUI(_currentMind, _health);
+        NotifyObservers(); // уведомить сразу
     }
 
     private void Update()
     {
         GettingHungry();
-        if (day is not null && day.DayProgress() > 0.4) LoseMind();
+        if (day != null && day.DayProgress() > 0.4f) LoseMind();
     }
 
     public void TakeDamage(float damage)
@@ -41,62 +41,63 @@ public class HealthSystem : MonoBehaviour
             _currentHealth = 0;
             Die();
         }
-        UpdateHealthUI(_currentHealth, _health);
+        NotifyObservers();
     }
 
     private void GettingHungry()
     {
         _currentHunger -= _timeHunger;
-        if(_currentHunger<0.2)TakeDamage(0.00002f);
-        UpdateHealthUI(_currentHunger, _hunger);
+        if (_currentHunger < 0.2f) TakeDamage(0.00002f);
+        NotifyObservers();
     }
 
     private void LoseMind()
     {
-        _currentMind -= 0.00001f; 
-        if(_currentMind<0.2)TakeDamage(0.00002f);
-        UpdateHealthUI(_currentMind, _mind);
+        _currentMind -= 0.00001f;
+        if (_currentMind < 0.2f) TakeDamage(0.00002f);
+        NotifyObservers();
     }
 
     public void Heal(float amount)
     {
-        _currentHealth += amount;
-        if (_currentHealth > maxHealth)
-        {
-            _currentHealth = maxHealth;
-        }
-        UpdateHealthUI(_currentHealth, _health);
+        _currentHealth = Mathf.Min(_currentHealth + amount, maxHealth);
+        NotifyObservers();
     }
 
-    public void Eat(float eat)
+    public void Eat(float amount)
     {
-        _currentHunger += eat;
-        if (_currentHunger > maxHealth)
-        {
-            _currentHunger = maxHealth;
-        }
-        UpdateHealthUI(_currentHunger, _hunger);
+        _currentHunger = Mathf.Min(_currentHunger + amount, maxHealth);
+        NotifyObservers();
     }
 
     public void IncreaseMind(float amount)
     {
-        _currentMind += amount;
-        if (_currentMind > maxHealth)
-        {
-            _currentMind = maxHealth;
-        }
-        UpdateHealthUI(_currentMind, _mind);
+        _currentMind = Mathf.Min(_currentMind + amount, maxHealth);
+        NotifyObservers();
     }
-    void UpdateHealthUI(float currentAmount, Image sliderH)
-    {
-        if (sliderH)
-        {
-            sliderH.fillAmount = currentAmount;
-        }
-    }
-    void Die()
+
+    private void Die()
     {
         Debug.Log("Player died");
+    }
+
+    // === Реализация Observer ===
+    public void Attach(IHealthObserver observer)
+    {
+        if (!_observers.Contains(observer)) _observers.Add(observer);
+    }
+
+    public void Detach(IHealthObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void NotifyObservers()
+    {
+        foreach (var observer in _observers)
+        {
+            observer.OnHealthChanged(_currentHealth, _currentHunger, _currentMind);
+        }
     }
     
     public float GetCurrentHealth() => _currentHealth;
@@ -108,9 +109,7 @@ public class HealthSystem : MonoBehaviour
         _currentHealth = health;
         _currentHunger = hunger;
         _currentMind = mind;
-        UpdateHealthUI(_currentHealth, _health);
-        UpdateHealthUI(_currentHunger, _hunger);
-        UpdateHealthUI(_currentMind, _mind);
+        NotifyObservers();
     }
-
 }
+
