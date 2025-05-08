@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Scene.Strategy;
 using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,26 +17,44 @@ public class GenerateGround : MonoBehaviour
     private int _floorCount;
     private int _floorIndex;
     private Vector2 _startPosition = new Vector2(-47f, -47f);
+    public int FloorCount { get; private set; }
+    private IMapGenerationStrategy _generationStrategy;
     
+    // void Start()
+    // {
+    //     _weights = new float[_floorPrefabs.Length];
+    //     SetWeights(_weights, _floorPrefabs);
+    //     _weightsDarkFloor = new float[_darkFloorPrefabs.Length];
+    //     SetWeights(_weightsDarkFloor, _darkFloorPrefabs);
+    //     _floorCount = Mathf.FloorToInt(_lengthBoundaries / _length);
+    //     for (int x = 0; x < _floorCount; x++)
+    //     {
+    //         for (int y = 0; y < _floorCount; y++)
+    //         {
+    //             float randomValue = Random.Range(0, _floorCount);
+    //             if(y > (x-randomValue) || y < randomValue) 
+    //                 SpawnDarkGround(x,y);
+    //             else SpawnGround(x,y);
+    //         }
+    //     }
+    // }
     void Start()
     {
         _weights = new float[_floorPrefabs.Length];
         SetWeights(_weights, _floorPrefabs);
         _weightsDarkFloor = new float[_darkFloorPrefabs.Length];
         SetWeights(_weightsDarkFloor, _darkFloorPrefabs);
-        _floorCount = Mathf.FloorToInt(_lengthBoundaries / _length);
-        for (int x = 0; x < _floorCount; x++)
-        {
-            for (int y = 0; y < _floorCount; y++)
-            {
-                float randomValue = Random.Range(0, _floorCount);
-                if(y > (x-randomValue) || y < randomValue) 
-                    SpawnDarkGround(x,y);
-                else SpawnGround(x,y);
-            }
-        }
+
+        FloorCount = Mathf.FloorToInt(_lengthBoundaries / _length);
+
+        // Выбор стратегии (например, лес или пустыня)
+        _generationStrategy = new ForestGenerationStrategy();
+        // _generationStrategy = new DesertGenerationStrategy(); 
+        // _generationStrategy = new MeadowGenerationStrategy(); 
+        // _generationStrategy = new VillageGenerationStrategy(); 
+        _generationStrategy.GenerateMap(this);
     }
-    private void SpawnGround(int indexX, int indexY)
+    public void SpawnGround(int indexX, int indexY)
     {
         float posX = _startPosition.x+indexX * _length;
         float posY = _startPosition.y+indexY * _length;
@@ -57,7 +76,7 @@ public class GenerateGround : MonoBehaviour
         }
         Instantiate(_floorPrefabs[_floorIndex], cubePosition, Quaternion.identity);
     }
-    private void SpawnDarkGround(int indexX, int indexY)
+    public void SpawnDarkGround(int indexX, int indexY)
     {
         float posX = _startPosition.x+indexX * _length;
         float posY = _startPosition.y+indexY * _length;

@@ -15,7 +15,8 @@ namespace _Project.Scripts.MenuUI.State
         {
             Debug.Log("Entered Game Playing State");
             Time.timeScale = 1f;
-            // Покажи UI игры, скрой меню
+            PauseMenu.Instance.pauseScreen.SetActive(false);
+            PauseMenu.Instance.gameScreen.SetActive(true);
         }
 
         public void ExitState()

@@ -4,13 +4,13 @@ namespace _Project.Scripts.MenuUI.State
 {
     public class GameStateContext : MonoBehaviour
     {
-        private IGameState currentState;
+        private IGameState _currentState;
 
         public void SetState(IGameState newState)
         {
-            currentState?.ExitState();
-            currentState = newState;
-            currentState.EnterState();
+            _currentState?.ExitState();
+            _currentState = newState;
+            _currentState.EnterState();
         }
         void Start()
         {
@@ -19,7 +19,7 @@ namespace _Project.Scripts.MenuUI.State
 
         void Update()
         {
-            currentState?.HandleInput();
+            _currentState?.HandleInput();
         }
         
         public void PauseGameFromUI()
