@@ -12,6 +12,7 @@ public class GameFacade : MonoBehaviour
     [SerializeField] private InventoryManager inventoryManager;
     [SerializeField] private DayTime dayTime;
     [SerializeField] private ObjectLifeCycles objectLifeCycles;
+    [SerializeField] private RecipeManager recipeManager;
 
     private void Awake()
     {
@@ -20,9 +21,12 @@ public class GameFacade : MonoBehaviour
     }
 
     public PlayerController GetPlayer() => playerController;
+    public ObjectLifeCycles GetObjectLifeCycles() => objectLifeCycles;
+    public RecipeManager GetRecipeManager() => recipeManager;
     public void TakeDamage(float amount) => healthSystem.TakeDamage(amount);
     public void Eat(float value) => healthSystem.Eat(value);
     public void Heal(float value) => healthSystem.Heal(value);
+    public void IncreaseMind(float value) => healthSystem.IncreaseMind(value);
     public float GetCurrentHealth() => healthSystem.GetCurrentHealth();
     public float GetCurrentHunger() => healthSystem.GetCurrentHealth();
     public float GetCurrentMind() => healthSystem.GetCurrentHunger();

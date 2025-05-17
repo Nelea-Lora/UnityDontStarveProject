@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Resources.Visitor;
 using UnityEngine;
 
 public class ObjectLifeCycles : MonoBehaviour
@@ -9,8 +10,9 @@ public class ObjectLifeCycles : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerCollision _playerCollision;
     [SerializeField] private RecipeManager _recipeManager;
-    private  CampfireManager _campfireManager;
+    private CampfireManager _campfireManager;
     
+    public CampfireManager GetCampfire() => _campfireManager;
     void Start()
     {
         _playerCollision.OnItemTriggerEnter += CampfireEnter;
@@ -26,16 +28,18 @@ public class ObjectLifeCycles : MonoBehaviour
         if (itemInHands&& _inventoryManager &&campfireManager &&campfireManager.DistanceToPlayer < 1 &&
             (itemInHands.burnLevel > 0 || itemInHands.itemType == ItemType.Food))
         {
-            if(itemInHands.burnLevel > 0)
-            {
-                float burn = campfireManager.
-                    Burn(campfireManager.maxLevelFire / itemInHands.burnLevel);
-                print("burnLevel "+burn);
-            }
-            if(itemInHands.itemType == ItemType.Food && _recipeManager)
-            {
-                _recipeManager.Cook(itemInHands);
-            }
+            BurnVisitor burnVisitor = new BurnVisitor();
+            itemInHands.Accept(burnVisitor);
+            // if(itemInHands.burnLevel > 0)
+            // {
+            //     float burn = campfireManager.
+            //         Burn(campfireManager.maxLevelFire / itemInHands.burnLevel);
+            //     print("burnLevel "+burn);
+            // }
+            // if(itemInHands.itemType == ItemType.Food && _recipeManager)
+            // {
+            //     _recipeManager.Cook(itemInHands);
+            // }
             _inventoryManager.UseItemAndDecrease();
         }
     }

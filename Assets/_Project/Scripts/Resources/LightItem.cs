@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Resources.Visitor;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -11,4 +12,9 @@ public class LightItem : ItemScriptableObject
     {
         itemType = ItemType.Light;
     } 
+    public override void Accept(IItemVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+
 }

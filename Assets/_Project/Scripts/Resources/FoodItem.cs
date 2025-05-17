@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Resources.Visitor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Food Item",menuName = "Inventory/Items/New Food Item")]
@@ -12,4 +13,8 @@ public class FoodItem : ItemScriptableObject
     {
         itemType = ItemType.Food;
     } 
+    public override void Accept(IItemVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
 }

@@ -1,3 +1,4 @@
+using _Project.Scripts.Resources.Visitor;
 using UnityEngine;
 
 
@@ -7,5 +8,10 @@ public class MaterialItem : ItemScriptableObject
     private void Start()
     {
         itemType = ItemType.Material;
-    } 
+    }
+    public override void Accept(IItemVisitor visitor)
+    {
+        visitor.Visit(this);
+    }
+
 }

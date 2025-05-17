@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Project.Scripts.Resources.Visitor;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     public Item itemTmp;
     [SerializeField] private DigitSwitching _digitSwitching;
     [SerializeField] private HealthSystem _healthSystem;
-    private bool _itemAdded;
+    // private bool _itemAdded;
 
     void Start()
     {
@@ -39,11 +40,15 @@ public class InventoryManager : MonoBehaviour
 
     private void GetItem()
     {
-        if (!itemTmp) return;
-        if (itemTmp && itemTmp._Item&& itemTmp._Item.itemType==ItemType.BuildItem) return;
-        AddItem(itemTmp._Item, itemTmp._amount);
-        if (_itemAdded)Destroy(itemTmp.gameObject);
-        _itemAdded = false;
+        // if (!itemTmp) return;
+        // if (itemTmp && itemTmp._Item&& itemTmp._Item.itemType==ItemType.BuildItem) return;
+        // AddItem(itemTmp._Item, itemTmp._amount);
+        // if (_itemAdded)Destroy(itemTmp.gameObject);
+        // _itemAdded = false;
+        if (itemTmp == null || itemTmp._Item == null) return;
+        PickupVisitor pickupVisitor = new PickupVisitor(this, itemTmp);
+        itemTmp._Item.Accept(pickupVisitor);
+
     }
     void OnItemTriggerEnter(Item item)
     {
@@ -69,7 +74,7 @@ public class InventoryManager : MonoBehaviour
                     if(slot==_digitSwitching.slotParent.GetChild(_digitSwitching.currentSlotID)
                            .GetComponent<InventorySlot>())
                         _digitSwitching.TakeItemInHands();
-                    _itemAdded = true;
+                    // _itemAdded = true;
                     return;
                 }
                 break;
@@ -89,7 +94,7 @@ public class InventoryManager : MonoBehaviour
                 if(slot==_digitSwitching.slotParent.GetChild(_digitSwitching.currentSlotID)
                        .GetComponent<InventorySlot>())
                     _digitSwitching.TakeItemInHands();
-                _itemAdded = true;
+                // _itemAdded = true;
                 break;
             }
         }
@@ -97,16 +102,29 @@ public class InventoryManager : MonoBehaviour
     private void UseItem()
     {
         if (!_digitSwitching) return;
+        // InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
+        //     .GetComponent<InventorySlot>(); 
+        // if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
+        //     || currentItem.amount <= 0) return;
+        // if (currentItem.item.itemType == ItemType.Food && !itemTmp)
+        // {
+        //     FoodItem foodItem = currentItem.item as FoodItem; if(!foodItem)return;
+        //     print("you eat " + foodItem);
+        //     _healthSystem.Heal(foodItem.healingAmount); _healthSystem.Eat(foodItem.eatingAmount);
+        //     _healthSystem.IncreaseMind(foodItem.mindAmount);
+        //     if (currentItem.amount <= 1)
+        //     {
+        //         currentItem.NullifySlotData();
+        //         _playerController.ItIsAnotherObjectInHand();
+        //     }
+        //     else currentItem.DecreaseSlotData(1);
+        // }
         InventorySlot currentItem = _inventoryPanel.GetChild(_digitSwitching.currentSlotID)
-            .GetComponent<InventorySlot>(); 
-        if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
-            || currentItem.amount <= 0) return;
-        if (currentItem.item.itemType == ItemType.Food && !itemTmp)
+            .GetComponent<InventorySlot>();
+        if (currentItem != null && currentItem.item != null)
         {
-            FoodItem foodItem = currentItem.item as FoodItem; if(!foodItem)return;
-            print("you eat " + foodItem);
-            _healthSystem.Heal(foodItem.healingAmount); _healthSystem.Eat(foodItem.eatingAmount);
-            _healthSystem.IncreaseMind(foodItem.mindAmount);
+            EatVisitor eatVisitor = new EatVisitor();
+            currentItem.item.Accept(eatVisitor);
             if (currentItem.amount <= 1)
             {
                 currentItem.NullifySlotData();
@@ -114,6 +132,7 @@ public class InventoryManager : MonoBehaviour
             }
             else currentItem.DecreaseSlotData(1);
         }
+
     }
 
     public void UseItemAndDecrease()
@@ -124,16 +143,22 @@ public class InventoryManager : MonoBehaviour
         if (!currentItem || !currentItem.item || !currentItem.itemAmount || !currentItem.iconGO 
             || currentItem.amount <= 0) return;
         print("currentItem.item "+currentItem.item);
-        if (currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0)
+        // if (currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0)
+        // {
+        //     print("currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0");
+        //     if (currentItem.amount <= 1)
+        //     {
+        //         currentItem.NullifySlotData();
+        //         _playerController.ItIsAnotherObjectInHand();
+        //     }
+        //     else currentItem.DecreaseSlotData(1);
+        // }
+        if (currentItem.amount <= 1)
         {
-            print("currentItem.item.itemType == ItemType.Food || currentItem.item.burnLevel > 0");
-            if (currentItem.amount <= 1)
-            {
-                currentItem.NullifySlotData();
-                _playerController.ItIsAnotherObjectInHand();
-            }
-            else currentItem.DecreaseSlotData(1);
+            currentItem.NullifySlotData();
+            _playerController.ItIsAnotherObjectInHand();
         }
+        else currentItem.DecreaseSlotData(1);
     }
     private void ChangeTimeShelfLife(InventorySlot slot)
     {

@@ -10,9 +10,13 @@ public class RecipeManager : MonoBehaviour
     public void Cook(ItemScriptableObject itemToCook)
     {
         if(!itemToCook && itemToCook.itemName is null)return;
+        Debug.Log("Есть из что приготовить");
         ItemRecipe itemRecipe = FindRecipeByNameOfResult(itemToCook.itemName);
-        if(itemRecipe && itemRecipe.Otput is not null && itemRecipe.Otput.item && itemRecipe.Otput.count>0)
+        if (itemRecipe && itemRecipe.Otput is not null && itemRecipe.Otput.item && itemRecipe.Otput.count > 0)
+        {
             _inventoryManager.AddItem(itemRecipe.Otput.item,itemRecipe.Otput.count);
+            Debug.Log("+++++++++++++++++++Забирай еду");
+        }
     }
     
     public ItemRecipe FindRecipeByNameOfResult(string recipeName)
