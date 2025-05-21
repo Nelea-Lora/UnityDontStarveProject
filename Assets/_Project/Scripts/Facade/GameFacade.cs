@@ -23,6 +23,7 @@ public class GameFacade : MonoBehaviour
     public PlayerController GetPlayer() => playerController;
     public ObjectLifeCycles GetObjectLifeCycles() => objectLifeCycles;
     public RecipeManager GetRecipeManager() => recipeManager;
+    public HealthSystem GetHealthSystem() => healthSystem;
     public void TakeDamage(float amount) => healthSystem.TakeDamage(amount);
     public void Eat(float value) => healthSystem.Eat(value);
     public void Heal(float value) => healthSystem.Heal(value);
@@ -56,5 +57,6 @@ public class GameFacade : MonoBehaviour
     {
         objectLifeCycles?.BurnItem(campfire, item);
     }
+    public void UseItemAndDecrease() => inventoryManager.UseItemAndDecrease();
 
 }

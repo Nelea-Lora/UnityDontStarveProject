@@ -5,8 +5,9 @@ using UnityEngine;
 public class Attacker : AnimalPlantScriptableObject
 {
     public float damageAmount;
-    private void Start()
-    {
-        animalPlantType = AnimalPlantType.Attaker;
-    } 
+    private void OnEnable() => animalPlantType = AnimalPlantType.Attacker;
+    // private void Start()
+    // {
+    //     animalPlantType = AnimalPlantType.Attaker;
+    // } 
 }

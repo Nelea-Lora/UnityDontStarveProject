@@ -11,9 +11,11 @@ namespace _Project.Scripts.Resources.Visitor
 
         public void Visit(FoodItem food)
         {
-            GameFacade.Instance.Heal(food.healingAmount);
-            GameFacade.Instance.Eat(food.eatingAmount);
-            GameFacade.Instance.IncreaseMind(food.mindAmount);
+            // GameFacade.Instance.Heal(food.healingAmount);
+            // GameFacade.Instance.Eat(food.eatingAmount);
+            // GameFacade.Instance.IncreaseMind(food.mindAmount);
+            food.ApplyEffect();
+            GameFacade.Instance.UseItemAndDecrease();
         }
 
         public void Visit(BuildItem build)

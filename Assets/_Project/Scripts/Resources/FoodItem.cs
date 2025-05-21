@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Resources.Decorator;
 using _Project.Scripts.Resources.Visitor;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class FoodItem : ItemScriptableObject
     public float healingAmount;
     public float eatingAmount;
     public float mindAmount;
+    public FoodEffect foodEffect;
     private void Start()
     {
         itemType = ItemType.Food;
@@ -17,4 +19,10 @@ public class FoodItem : ItemScriptableObject
     {
         visitor.Visit(this);
     }
+    
+    public void ApplyEffect()
+    {
+        foodEffect?.ApplyEffect(this);
+    }
+    
 }

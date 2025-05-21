@@ -125,12 +125,12 @@ public class InventoryManager : MonoBehaviour
         {
             EatVisitor eatVisitor = new EatVisitor();
             currentItem.item.Accept(eatVisitor);
-            if (currentItem.amount <= 1)
-            {
-                currentItem.NullifySlotData();
-                _playerController.ItIsAnotherObjectInHand();
-            }
-            else currentItem.DecreaseSlotData(1);
+            // if (currentItem.amount <= 1)
+            // {
+            //     currentItem.NullifySlotData();
+            //     _playerController.ItIsAnotherObjectInHand();
+            // }
+            // else currentItem.DecreaseSlotData(1);
         }
 
     }

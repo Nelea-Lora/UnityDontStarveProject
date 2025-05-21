@@ -5,8 +5,5 @@ using UnityEngine;
 public class Vegetable : AnimalPlantScriptableObject
 {
     public InstrumentType instrumentType;
-    private void Start()
-    {
-        animalPlantType = AnimalPlantType.Vegetable;
-    } 
+    private void OnEnable() => animalPlantType = AnimalPlantType.Vegetable;
 }

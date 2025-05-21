@@ -15,7 +15,6 @@ public class RecipeManager : MonoBehaviour
         if (itemRecipe && itemRecipe.Otput is not null && itemRecipe.Otput.item && itemRecipe.Otput.count > 0)
         {
             _inventoryManager.AddItem(itemRecipe.Otput.item,itemRecipe.Otput.count);
-            Debug.Log("+++++++++++++++++++Забирай еду");
         }
     }
     

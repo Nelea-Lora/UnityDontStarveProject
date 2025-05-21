@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AnimalPlantType {Attaker, Runner, Vegetable}
+public enum AnimalPlantType {Attacker, Runner, Vegetable, TamableAnimal, FruitDroppingPlant}
 public class AnimalPlantScriptableObject : ScriptableObject
 {
     public GameObject animalPlantPrefab;

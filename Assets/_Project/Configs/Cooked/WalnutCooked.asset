@@ -18,8 +18,9 @@ MonoBehaviour:
   maximumAmount: 16
   icon: {fileID: 21300000, guid: 8a49b0dc4f2b6734b84c6e6db04ab816, type: 3}
   maxTimeShelfLife: 6
-  currTimeShelfLife: 9.018869
+  currTimeShelfLife: 6
   burnLevel: 0
-  healingAmount: 0.05
-  eatingAmount: 0.05
+  healingAmount: 0.2
+  eatingAmount: 0.3
   mindAmount: 0.01
+  foodEffect: {fileID: 11400000, guid: 5e328c0ded432894fb2f313a58fa3a43, type: 2}

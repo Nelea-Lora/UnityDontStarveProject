@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.AnimalsPlants.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class AnimalOrPlantManager : MonoBehaviour
     private AnimalOrPlant _animalOrPlantTmp;
     private bool _attackAdded;
     public bool AttackByInstrument { get; private set; }
+    
     void Start()
     {
         _playerCollision.OnAnimalOrPlantTriggerEnter += OnAnimalOrPlantTriggerEnter;
@@ -19,18 +21,39 @@ public class AnimalOrPlantManager : MonoBehaviour
     
     void Update()
     {
+        // if (_animalOrPlantTmp)
+        // {
+        //     if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Attacker && !_attackAdded)
+        //     {
+        //         GiveDamage(); 
+        //         _attackAdded = true;
+        //     }
+        //     AttackByInstrument = false;
+        //     if (_playerController&& _playerController.itemInHands&& 
+        //         _playerController.itemInHands.itemType == ItemType.Instrument && Input.GetKeyDown(KeyCode.Space))
+        //     {
+        //         TakeDamageAP();
+        //     }
+        // }
         if (_animalOrPlantTmp)
         {
-            if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Attaker && !_attackAdded)
+            var attack = _animalOrPlantTmp.GetComponent<AttackComponent>();
+            if (attack != null && !_attackAdded)
             {
-                GiveDamage(); 
+                attack.TriggerAttack(_playerController);
                 _attackAdded = true;
             }
-            AttackByInstrument = false;
-            if (_playerController&& _playerController.itemInHands&& 
-                _playerController.itemInHands.itemType == ItemType.Instrument && Input.GetKeyDown(KeyCode.Space))
+
+            var tame = _animalOrPlantTmp.GetComponent<TameComponent>();
+            if (tame != null)
             {
-                TakeDamageAP();
+                tame.TryTame(_playerController);
+            }
+
+            AttackByInstrument = false;
+            if (_playerController?.itemInHands is InstrumentItem instrument && Input.GetKeyDown(KeyCode.Space))
+            {
+                TakeDamageAP(instrument);
             }
         }
     }
@@ -45,35 +68,58 @@ public class AnimalOrPlantManager : MonoBehaviour
         _animalOrPlantTmp = null;
     }
 
-    private void GiveDamage()
-    {
-        Attacker attackerComponent = _animalOrPlantTmp.animalPlant as Attacker;
-        if (attackerComponent)
-        {
-            GameFacade.Instance.TakeDamage(attackerComponent.damageAmount);
-            //_healthSystem.TakeDamage(attackerComponent.damageAmount);
-        }
-    }
+    // private void GiveDamage()
+    // {
+    //     Attacker attackerComponent = _animalOrPlantTmp.animalPlant as Attacker;
+    //     if (attackerComponent)
+    //     {
+    //         GameFacade.Instance.TakeDamage(attackerComponent.damageAmount);
+    //         //_healthSystem.TakeDamage(attackerComponent.damageAmount);
+    //     }
+    // }
 
-    private void TakeDamageAP()
+    private void TakeDamageAP(InstrumentItem instrumentItem)
     {
-        if(_animalOrPlantTmp.animalPlant.healthLevel<=0)return;
-        InstrumentItem instrumentItem = _playerController.itemInHands as InstrumentItem;
-        if (!instrumentItem) return;
-        if (_animalOrPlantTmp.animalPlant.animalPlantType is AnimalPlantType.Attaker or AnimalPlantType.Runner)
+        // if(_animalOrPlantTmp.animalPlant.healthLevel<=0)return;
+        // InstrumentItem instrumentItem = _playerController.itemInHands as InstrumentItem;
+        // if (!instrumentItem) return;
+        // if (_animalOrPlantTmp.animalPlant.animalPlantType is AnimalPlantType.Attacker or AnimalPlantType.Runner)
+        // {
+        //     _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
+        //     AttackByInstrument = true;
+        // }
+        // else if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Vegetable)
+        // {
+        //     Vegetable vegetable = _animalOrPlantTmp.animalPlant as Vegetable;
+        //     if (vegetable && vegetable.instrumentType == instrumentItem.instrumentType)
+        //     {
+        //         _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
+        //         AttackByInstrument = true;
+        //     }
+        // }
+        // if (_animalOrPlantTmp.animalPlant.healthLevel <= 0)
+        // {
+        //     AttackByInstrument = false;
+        //     Death();
+        // }
+        
+        if (_animalOrPlantTmp.animalPlant.healthLevel <= 0) return;
+
+        if (_animalOrPlantTmp.animalPlant.animalPlantType is AnimalPlantType.Attacker or AnimalPlantType.Runner)
         {
             _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
             AttackByInstrument = true;
         }
         else if (_animalOrPlantTmp.animalPlant.animalPlantType == AnimalPlantType.Vegetable)
         {
-            Vegetable vegetable = _animalOrPlantTmp.animalPlant as Vegetable;
-            if (vegetable && vegetable.instrumentType == instrumentItem.instrumentType)
+            var vegetable = _animalOrPlantTmp.animalPlant as Vegetable;
+            if (vegetable?.instrumentType == instrumentItem.instrumentType)
             {
                 _animalOrPlantTmp.animalPlant.healthLevel -= instrumentItem.forceAmount;
                 AttackByInstrument = true;
             }
         }
+
         if (_animalOrPlantTmp.animalPlant.healthLevel <= 0)
         {
             AttackByInstrument = false;
@@ -83,13 +129,22 @@ public class AnimalOrPlantManager : MonoBehaviour
 
     private void Death()
     {
-        if(_animalOrPlantTmp.animalPlant.items==null) return;
-        print(_animalOrPlantTmp.animalPlant+"'s death");
-        for (int i = 0; i < _animalOrPlantTmp.animalPlant.items.Count; i++)
+        // if(_animalOrPlantTmp.animalPlant.items==null) return;
+        // print(_animalOrPlantTmp.animalPlant+"'s death");
+        // for (int i = 0; i < _animalOrPlantTmp.animalPlant.items.Count; i++)
+        // {
+        //    Item item = _animalOrPlantTmp.animalPlant.items[i];
+        //    print("You've got "+item);
+        //    Instantiate(item.gameObject, _animalOrPlantTmp.transform.position, Quaternion.identity);
+        // }
+        // Destroy(_animalOrPlantTmp.gameObject);
+        
+        if (_animalOrPlantTmp.animalPlant.items == null) return;
+        Debug.Log(_animalOrPlantTmp.animalPlant + "'s death");
+        foreach (var item in _animalOrPlantTmp.animalPlant.items)
         {
-           Item item = _animalOrPlantTmp.animalPlant.items[i];
-           print("You've got "+item);
-           Instantiate(item.gameObject, _animalOrPlantTmp.transform.position, Quaternion.identity);
+            Debug.Log("You've got " + item);
+            Instantiate(item.gameObject, _animalOrPlantTmp.transform.position, Quaternion.identity);
         }
         Destroy(_animalOrPlantTmp.gameObject);
     }
