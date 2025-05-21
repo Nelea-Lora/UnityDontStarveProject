@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace _Project.Scripts.AnimalsPlants.Components
 {
@@ -14,5 +15,10 @@ namespace _Project.Scripts.AnimalsPlants.Components
                 Instantiate(fruit.gameObject, transform.position, Quaternion.identity);
             }
         }
+
+        // public void Initialize(List<Item> animalPlantItems, float f)
+        // {
+        //     throw new System.NotImplementedException();
+        // }
     }
 }

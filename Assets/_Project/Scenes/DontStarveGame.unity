@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3377,10 +3377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fb860fadb54e149a8e676784bb84b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animalOrPlantsPrefabs:
-  - {fileID: 7253480822316114258, guid: fbb6467dbb8cb6e4fbc57c34205c5ff8, type: 3}
-  - {fileID: 6181882579592120446, guid: 4da647ce90cdf5e40a558cf2b427c00a, type: 3}
   _countOfAnimalOrPlant: 10
+  _animalPlantEntries:
+  - data: {fileID: 11400000, guid: 73f40f525115f0b45a405110996db97f, type: 2}
+    probabilityOfOccurence: 10
+  - data: {fileID: 11400000, guid: f882daffcdb30c4429c840f55b6a6d03, type: 2}
+    probabilityOfOccurence: 20
 --- !u!114 &1250920587
 MonoBehaviour:
   m_ObjectHideFlags: 0
